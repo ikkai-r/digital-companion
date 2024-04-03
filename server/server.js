@@ -12,6 +12,17 @@ function newPart(id, name, str, spd, def, cha, fac) {
     }
     return { id, name, str, spd, def, cha, fac }
 }
+
+app.post('/api/setPlayer', (req, res) => {
+    const { playerNumber } = req.body;
+
+    if (!playerNumber) {
+        return res.status(400).json({ error: 'Player number is required' });
+    } else {
+        return res.status(200).json({message: 'Player number set successfully'})
+    }
+});
+
 let parts = []
 parts.push(newPart("MKH", "Monkey Head", 2, 1, 1, 0, "Terrestrial"))
 parts.push(newPart("MDH", "Medusa Head", 0, 0, 1, 3, "Fantastical"))
