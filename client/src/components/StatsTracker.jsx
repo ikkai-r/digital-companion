@@ -4,7 +4,7 @@ import Image from 'next/image'
 
 export default function StatsTracker() {
   return (
-    <div className='w-full py-5 bg-primary rounded-md mt-10 px-3'>
+    <div className='w-full py-5 bg-accent3 rounded-md mt-10 px-3'>
          <div className='w-full text-center'>       
           <p className='text-3xl accent-text uppercase'>
               Player 1 stats
