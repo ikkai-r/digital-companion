@@ -3,7 +3,6 @@
 import React from 'react'
 import LimbContainer from './LimbContainer';
 
-
 export default function LimbTracker() {
 
   const COLORS = [
@@ -91,7 +90,6 @@ export default function LimbTracker() {
 
         <div className='w-full max-h-[350px] min-h-[350px] overflow-y-auto'>
 
-        
               {LIMBS.map(limb => (
                 <LimbContainer 
                   key={limb.code}

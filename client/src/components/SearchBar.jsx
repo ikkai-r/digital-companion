@@ -1,13 +1,12 @@
 import React from 'react'
 import Paper from '@mui/material/Paper';
-import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
-import { TextInput } from 'flowbite-react';
 
 export default function SearchBar() {
   return (
-    <Paper
+    <>
+        <Paper 
       component="form"
       sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: '100%', backgroundColor: '#4056a1' }}
       className='bg-[#4056a1]'
@@ -17,5 +16,21 @@ export default function SearchBar() {
         <SearchIcon sx={{color: '#F4B324'}}/>
       </IconButton>
     </Paper>
+
+    <div className='w-full max-h-32 overflow-y-auto h-auto bg-gray-200 text-base text-background primary-text'>
+       <div className=' primary-text pt-3 p-1 px-2 hover:bg-gray-300'>
+         Mermaid Tail
+       </div>
+       <div className='primary-text p-1 px-2  hover:bg-gray-300'>
+         Octopus Arm
+       </div>
+       <div className='primary-text p-1 px-2  hover:bg-gray-300'>
+         Octopus Arm
+       </div>
+       <div className='primary-text p-1 px-2  hover:bg-gray-300'>
+         Octopus Arm
+       </div>
+    </div>
+    </>
   )
 }

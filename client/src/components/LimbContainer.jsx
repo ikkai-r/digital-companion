@@ -21,7 +21,7 @@ export default function LimbContainer({limb}) {
 
   return (
     <div className='w-full flex items-center justify-center'>
-        <div className={`w-full ${limb.color} rounded-md p-3 mt-4 ${isDropdownOpen ? 'h-0 overflow-hidden hidden' : 'h-auto'}`} onClick={toggleDropdown}>
+        <div className={` w-full ${limb.color} rounded-md p-3 mt-4 ${isDropdownOpen ? 'h-0 overflow-hidden hidden' : 'h-auto'}`} onClick={toggleDropdown}>
             <div className='w-full text-center flex items-center'>
             <Image
                     src={`/assets/${limb.code}.png`}
