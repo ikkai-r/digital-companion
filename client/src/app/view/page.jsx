@@ -2,7 +2,7 @@ import React from 'react'
 import SearchBar from '@/components/SearchBar'
 import StatsTracker from '@/components/StatsTracker'
 import LimbTracker from '@/components/LimbTracker'
-import { Button } from 'flowbite-react'
+import { Button, Carousel } from 'flowbite-react'
 import { PiSneakerMove } from "react-icons/pi";
 import { FaRegFlag } from "react-icons/fa6";
 

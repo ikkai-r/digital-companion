@@ -1,18 +1,27 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
+import { MdDelete } from "react-icons/md";
+import { Button, Modal } from 'flowbite-react';
+import { HiOutlineExclamationCircle } from "react-icons/hi";
+
+
 
 export default function LimbContainer({limb}) {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [openModal, setOpenModal] = useState(false);
 
     const toggleDropdown = () => {
-        console.log('open')
       setIsDropdownOpen(!isDropdownOpen);
     };
 
+    const handleModal = (e) => {
+        e.stopPropagation();
+        setOpenModal(true);
+    }
+
   return (
-    <div className='w-full'>
-        <div className={`w-full ${limb.color} rounded-md p-3 mt-4 ${isDropdownOpen ? 'h-0 overflow-hidden hidden' : 'h-auto'}`}
-             onClick={toggleDropdown}>
+    <div className='w-full flex items-center justify-center'>
+        <div className={`w-full ${limb.color} rounded-md p-3 mt-4 ${isDropdownOpen ? 'h-0 overflow-hidden hidden' : 'h-auto'}`} onClick={toggleDropdown}>
             <div className='w-full text-center flex items-center'>
             <Image
                     src={`/assets/${limb.code}.png`}
@@ -29,9 +38,10 @@ export default function LimbContainer({limb}) {
                     {limb.code} | {limb.race}
                     </p>
             </div>
+            <MdDelete className='text-4xl' onClick={(e) => handleModal(e)}/>
 
             </div>
-            </div>
+        </div>
 
             {isDropdownOpen && (
                 <div className={`${limb.color} rounded-md p-3 mt-4 grid grid-cols-3 gap-2 transition-height duration-500 ease-in-out`}
@@ -71,6 +81,27 @@ export default function LimbContainer({limb}) {
                 </div>
             )}
             
+            {/** Optional TODO: Center the modal in mobile */}
+       
+            <Modal show={openModal} className='h-full' size="md" onClose={() => setOpenModal(false)} popup>
+            <Modal.Header />
+            <Modal.Body>
+            <div className="text-center">
+                <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
+                <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                Are you sure you want to delete the {limb.name}?
+                </h3>
+                <div className="flex justify-center gap-4">
+                <Button color="failure" onClick={() => setOpenModal(false)}>
+                    {"Yes, I'm sure"}
+                </Button>
+                <Button color="gray" onClick={() => setOpenModal(false)}>
+                    No, I want it!
+                </Button>
+                </div>
+            </div>
+            </Modal.Body>
+        </Modal>
     </div>
   )
 }
