@@ -40,10 +40,15 @@ export default function SearchBar() {
 
     <div 
       className={`${showDiv ? "max-h-32" : "max-h-0 invisible"} w-full overflow-y-auto h-auto bg-gray-200 text-base text-background primary-text mt-1 rounded-md transition-all duration-500 ease-in-out overflow-hidden`}>
-       <div className=' primary-text pt-3 p-1 px-2 hover:bg-gray-300'>
+       <div className=' primary-text py-1.5 p-1 px-2 hover:bg-gray-300'>
+         Mermaid Tail
+       </div>
+       <div className=' primary-text py-1.5 p-1 px-2 hover:bg-gray-300'>
          Mermaid Tail
        </div>
     </div>
+
+    
     </>
   )
 }
