@@ -45,8 +45,8 @@ export default function StatsTracker() {
     "carousel":{
       "root": {
         "base": "relative h-full w-full",
-        "leftControl": "absolute top-0 mt-16 pt-5 flex h-full items-center justify-center px-4 focus:outline-none",
-        "rightControl": "absolute ml-14 top-0 mt-16  pt-5 flex h-full items-center justify-center px-4 focus:outline-none"
+        "leftControl": "absolute top-0 mt-16 pt-4 flex h-full items-center justify-center px-4 focus:outline-none",
+        "rightControl": "absolute ml-14 top-0 mt-16  pt-4 flex h-full items-center justify-center px-4 focus:outline-none"
       },
       "indicators": {
         "active": {
@@ -76,7 +76,7 @@ export default function StatsTracker() {
 
   return (
 
-    <div className='h-56 sm:h-64 xl:h-80 2xl:h-96 mt-7'>
+    <div className='h-70 sm:h-70 xl:h-80 2xl:h-96 mt-4'>
 
   <Flowbite theme={{ theme: customTheme }}>
       <Carousel slide={false} onSlideChange={(index) => console.log('onSlideChange()', index)}>
