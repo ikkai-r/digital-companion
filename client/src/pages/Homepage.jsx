@@ -41,7 +41,7 @@ export default function Homepage() {
             </div>
 
             <div className='w-full flex mt-5 gap-5 flex-wrap justify-center'>
-                <Link href="/view" onClick={() => setPlayerNumber(1)}>
+                <Link href="/view?player=1" onClick={() => setPlayerNumber(1)}>
                     <div className='mt-3 bg-gradient-to-b from-accent2 accent-text rounded-lg w-36 h-40 flex justify-center items-center hover:-translate-y-1 hover:scale-110 transition ease-in-out delay-150'>
                             <p className='text-8xl font-bold text-accent2'>
                                 1
@@ -49,7 +49,7 @@ export default function Homepage() {
                     </div>
                 </Link>
                
-               <Link href="/view" onClick={() => setPlayerNumber(2)}>
+               <Link href="/view?player=2" onClick={() => setPlayerNumber(2)}>
                     <div  className='mt-3 bg-gradient-to-b from-primary accent-text rounded-lg w-36 h-40 flex justify-center items-center hover:-translate-y-1 hover:scale-110 transition ease-in-out delay-150'>
                         <p className='text-8xl font-bold text-primary'>
                             2
@@ -57,7 +57,7 @@ export default function Homepage() {
                     </div>
                 </Link>
                 
-                <Link href="/view" onClick={() => setPlayerNumber(3)}>
+                <Link href="/view?player=3" onClick={() => setPlayerNumber(3)}>
                     <div className='bg-gradient-to-b from-accent3 mt-3 accent-text rounded-lg w-36 h-40 flex justify-center items-center hover:-translate-y-1 hover:scale-110 transition ease-in-out delay-150'>
                         <p className='text-8xl font-bold text-accent3'>
                             3
@@ -65,7 +65,7 @@ export default function Homepage() {
                     </div>
                </Link>
 
-               <Link href="/view" onClick={() => setPlayerNumber(4)}>
+               <Link href="/view?player=4" onClick={() => setPlayerNumber(4)}>
                     <div className='bg-gradient-to-b from-accent mt-3 accent-text rounded-lg w-36 h-40 flex justify-center items-center hover:-translate-y-1 hover:scale-110 transition ease-in-out delay-150'>
                         <p className='text-8xl font-bold text-accent'>
                             4
