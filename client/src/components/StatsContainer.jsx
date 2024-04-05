@@ -56,13 +56,11 @@ export default function StatsContainer({color, playernum, str, def, spe, cha}) {
     </div>
       
   </div>
-
-   {/** Optional TODO: Center the modal in mobile */}
        
    <Modal show={openModal} className='h-full ' size="md" onClose={() => setOpenModal(false)} popup>
-   <Modal.Header className='bg-text'/>
-   <Modal.Body className='bg-text rounded-md'>
-   <div className="text-center primary-text bg-text flex justify-center flex-col items-center gap-4">
+   <Modal.Header className='bg-background'/>
+   <Modal.Body className='bg-background'>
+   <div className="text-center primary-text bg-background flex justify-center flex-col items-center gap-4">
 
    <div className='bg-accent w-full flex justify-center items-center flex-col p-4 rounded-md'>
        <h3 className="text-lg accent-text uppercase text-background">

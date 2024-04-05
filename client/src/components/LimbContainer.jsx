@@ -85,11 +85,11 @@ export default function LimbContainer({limb}) {
             {/** Optional TODO: Center the modal in mobile */}
        
             <Modal show={openModal} className='h-full ' size="md" onClose={() => setOpenModal(false)} popup>
-            <Modal.Header className='bg-text'/>
-            <Modal.Body className='bg-text'>
-            <div className="text-center primary-text bg-text">
-                <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
-                <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+            <Modal.Header className='bg-background'/>
+            <Modal.Body className='bg-background'>
+            <div className="text-center primary-text bg-background">
+                <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-accent3" />
+                <h3 className="mb-5 text-lg font-normal text-text">
                 Are you sure you want to delete the {limb.name}?
                 </h3>
                 <div className="flex justify-center gap-4">
