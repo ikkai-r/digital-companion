@@ -3,46 +3,93 @@ import React from 'react'
 import { Carousel, Flowbite } from 'flowbite-react'
 import type { CustomFlowbiteTheme } from "flowbite-react";
 import StatsContainer from './StatsContainer';
+import { useState, useEffect } from 'react'
 
 export default function StatsTracker() {
 
-  const PLAYERS = [
-    {
-      color: '#ff844f',
-      playerNum: '1',
-      str: '0',
-      def: '2',
-      spe: '2',
-      cha: '3'
-    },
-    {
-      color: '#CD3AFF',
-      playerNum: '2',
-      str: '5',
-      def: '-2',
-      spe: '0',
-      cha: '1'
-    },
-    {
-      color: '#E4273B',
-      playerNum: '3',
-      str: '-1',
-      def: '-2',
-      spe: '0',
-      cha: '5'
-    },
-    {
-      color: '#61ebff',
-      playerNum: '4',
-      str: '2',
-      def: '-2',
-      spe: '1',
-      cha: '1'
-    },
-  ]
-  
-  const customTheme : CustomFlowbiteTheme = {
-    "carousel":{
+  const [data, setData] = useState(null)
+  const [isLoading, setLoading] = useState(true)
+
+  useEffect(() => {
+
+    const API_URL = process.env.NEXT_PUBLIC_BACKEND
+    fetch(`${API_URL}/view_all_stats`)
+      .then(response => response.json())
+      .then(data => {
+        setData(data)
+        setLoading(false)
+      })
+      .catch(error => {
+        console.error('Error:', error)
+      })
+  }, [])
+
+  if (isLoading) return <p>Loading...</p>
+  let PLAYERS;
+  if (!data) {
+    PLAYERS = [
+      {
+        color: '#ff844f',
+        playerNum: '1',
+        stats: {
+          str: '0',
+          def: '0',
+          spd: '0',
+          cha: '0'
+        }
+      },
+      {
+        color: '#CD3AFF',
+        playerNum: '2',
+        stats: {
+          str: '0',
+          def: '0',
+          spd: '0',
+          cha: '0'
+        }
+      },
+      {
+        color: '#E4273B',
+        playerNum: '3',
+        stats: {
+          str: '0',
+          def: '0',
+          spd: '0',
+          cha: '0'
+        }
+      },
+      {
+        color: '#61ebff',
+        playerNum: '4',
+        stats: {
+          str: '0',
+          def: '0',
+          spd: '0',
+          cha: '0'
+        }
+      },
+    ]
+  } else {
+    PLAYERS = data.map((player) => {
+      return {
+        color: player.color,
+        playerNum: player.playerNum,
+        stats: {
+          str: player.stats.str,
+          def: player.stats.def,
+          spd: player.stats.spd,
+          cha: player.stats.cha
+        }
+      }
+    })
+    PLAYERS[0].color = '#ff844f'
+    PLAYERS[1].color = '#CD3AFF'
+    PLAYERS[2].color = '#E4273B'
+    PLAYERS[3].color = '#61ebff'
+  }
+
+  const customTheme: CustomFlowbiteTheme = {
+    "carousel": {
       "root": {
         "base": "relative h-full w-full",
         "leftControl": "absolute top-0 mt-16 pt-4 flex h-full items-center justify-center px-4 focus:outline-none",
@@ -78,23 +125,23 @@ export default function StatsTracker() {
 
     <div className='h-70 sm:h-70 xl:h-80 2xl:h-96 mt-4'>
 
-  <Flowbite theme={{ theme: customTheme }}>
-      <Carousel slide={false} onSlideChange={(index) => console.log('onSlideChange()', index)}>
+      <Flowbite theme={{ theme: customTheme }}>
+        <Carousel slide={false} onSlideChange={(index) => console.log('onSlideChange()', index)}>
 
-      {PLAYERS.map(player => (
-                <StatsContainer 
-                  key={player.playerNum}
-                  playernum={player.playerNum}
-                  color={player.color}
-                  str={player.str}
-                  def={player.def}
-                  spe={player.spe}
-                  cha={player.cha}
-                />
-              ))}
-      </Carousel>
-    </Flowbite>
+          {PLAYERS.map(player => (
+            <StatsContainer
+              key={player.playerNum}
+              playernum={player.playerNum}
+              color={player.color}
+              str={player.stats.str}
+              def={player.stats.def}
+              spe={player.stats.spd}
+              cha={player.stats.cha}
+            />
+          ))}
+        </Carousel>
+      </Flowbite>
     </div>
-    
+
   )
 }

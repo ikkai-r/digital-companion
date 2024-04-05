@@ -13,13 +13,17 @@ function newPart(id, name, str, spd, def, cha, fac) {
     return { id, name, str, spd, def, cha, fac }
 }
 
+function findPart(id) {
+    return parts.find(part => part.id === id)
+}
+
 app.post('/api/setPlayer', (req, res) => {
     const { playerNumber } = req.body;
 
     if (!playerNumber) {
         return res.status(400).json({ error: 'Player number is required' });
     } else {
-        return res.status(200).json({message: 'Player number set successfully'})
+        return res.status(200).json({ message: 'Player number set successfully' })
     }
 });
 
@@ -121,6 +125,31 @@ app.get("/api/view/:player", (req, res) => {
     }
 })
 
+app.get("/api/view_parts/:player", (req, res) => {
+    const player = req.params.player
+    if (player < 1 || player > 4) {
+        res.status(400).send("Invalid player number!")
+    } else {
+        res.status(200).setHeader('Access-Control-Allow-Origin', '*').send(players[player - 1])
+    }
+});
+
+app.get("/api/view_all_stats", (req, res) => {
+    const allStats = []
+    for (let i = 1; i <= 4; i++) {
+        allStats.push({ playerNum: i, stats: getStats(i) })
+    }
+
+    for (let i = 0; i < allStats.length; i++) {
+        let buffs = getBuffs(i + 1)
+        allStats[i].stats.str += buffs.str
+        allStats[i].stats.spd += buffs.spd
+        allStats[i].stats.def += buffs.def
+        allStats[i].stats.cha += buffs.cha
+    }
+    res.status(200).setHeader('Access-Control-Allow-Origin', '*').send(allStats)
+})
+
 app.post("/api/add/:player/:part", (req, res) => {
     const player = req.params.player
     const part = req.params.part
@@ -141,18 +170,18 @@ app.delete("/api/remove/:player/:part", (req, res) => {
     const player = req.params.player
     const part = req.params.part
     if (player < 1 || player > 4) {
-        res.status(400).send("Invalid player number!")
+        res.status(400).setHeader('Access-Control-Allow-Origin', '*').send("Invalid player number!")
     } else {
         const partObj = parts.find(p => p.id === part)
         if (!partObj) {
-            res.status(400).send("Invalid part ID!")
+            res.status(400).setHeader('Access-Control-Allow-Origin', '*').send("Invalid part ID!")
         } else {
             const index = players[player - 1].findIndex(p => p.id === part)
             if (index === -1) {
-                res.status(400).send("Part not found!")
+                res.status(400).setHeader('Access-Control-Allow-Origin', '*').send("Part not found!")
             } else {
                 players[player - 1].splice(index, 1)
-                res.status(200).send("Part removed!")
+                res.status(200).setHeader('Access-Control-Allow-Origin', '*').send("Part removed!")
             }
         }
     }
@@ -191,6 +220,19 @@ app.post("/api/battle/:player1/:player2", (req, res) => {
         useBuff(player1)
         useBuff(player2)
         res.status(200).send(result)
+    }
+});
+
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+}
+
+app.get("/api/move/:player", (req, res) => {
+    const player = req.params.player
+    if (player < 1 || player > 4) {
+        res.status(400).send("Invalid player number!")
+    } else {
+        res.status(200).send(getRandomInt(3) + 6 - players[player - 1].length)
     }
 });
 

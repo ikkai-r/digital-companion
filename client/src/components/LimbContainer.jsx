@@ -3,12 +3,13 @@ import Image from 'next/image'
 import { MdDelete } from "react-icons/md";
 import { Button, Modal } from 'flowbite-react';
 import { HiOutlineExclamationCircle } from "react-icons/hi";
-
-
+import { useSearchParams } from 'next/navigation'
 
 export default function LimbContainer({limb}) {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [openModal, setOpenModal] = useState(false);
+    const searchParams = useSearchParams()
+    const playerNum = searchParams.get('player')
 
     const toggleDropdown = () => {
       setIsDropdownOpen(!isDropdownOpen);
@@ -92,7 +93,22 @@ export default function LimbContainer({limb}) {
                 Are you sure you want to delete the {limb.name}?
                 </h3>
                 <div className="flex justify-center gap-4">
-                <Button color="failure" onClick={() => setOpenModal(false)}>
+                <Button color="failure" onClick={() => {
+                    const API_URL = process.env.NEXT_PUBLIC_BACKEND
+
+                    fetch(`${API_URL}/remove/${playerNum}/${limb.code}`, { method: 'DELETE' })
+                      .then(response => {
+                        if (response.status === 200) {
+                            window.location.reload()
+                        } else {
+                          console.error('Error:', response)
+                        }
+                      })
+                      .catch(error => {
+                        console.error('Error:', error)
+                      })
+                    setOpenModal(false)
+                }}>
                     {"Yes, I'm sure"}
                 </Button>
                 <Button color="gray" onClick={() => setOpenModal(false)}>
