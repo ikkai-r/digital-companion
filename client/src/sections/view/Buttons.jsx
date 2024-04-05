@@ -87,7 +87,7 @@ export default function Buttons() {
 
                         <div className="flex justify-center gap-4 mt-4">
                             <Link href={`/combat?ptor=${playerNum}&prey=${prey}`}>
-                                <Button className='w-36 text-3xl' size="4xl" style={{ backgroundColor: '#FB5A48' }}>
+                                <Button className={`w-36 text-3xl ${prey === null ? 'hidden' : ''}`} size="4xl" style={{ backgroundColor: '#FB5A48' }}>
                                     {"FIGHT!"}
                                 </Button>
                             </Link>
