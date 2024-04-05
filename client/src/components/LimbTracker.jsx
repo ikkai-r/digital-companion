@@ -7,7 +7,6 @@ import { useSearchParams } from 'next/navigation'
 
 export default function LimbTracker() {
   const [data, setData] = useState(null)
-  const [isLoading, setLoading] = useState(true)
   const searchParams = useSearchParams()
   const playerNum = searchParams.get('player')
 
@@ -34,7 +33,6 @@ export default function LimbTracker() {
       .then(response => response.json())
       .then(data => {
         setData(data)
-        setLoading(false)
       })
       .catch(error => {
         console.error('Error:', error)
@@ -43,53 +41,10 @@ export default function LimbTracker() {
   }, [])
 
   let LIMBS;
-  if (isLoading) return <p>Loading...</p>
+
   if (!data) {
     LIMBS = [
-      {
-        code: 'MTS',
-        color: '',
-        colorbg: '',
-        name: 'Mermaid Tail',
-        race: 'Fantastical',
-        str: '1',
-        spe: '0',
-        def: '-1',
-        cha: '4'
-      },
-      {
-        code: 'OCA',
-        color: '',
-        colorbg: '',
-        name: 'Octopus Arm',
-        race: 'Aquatic',
-        str: '1',
-        spe: '-1',
-        def: '2',
-        cha: '2'
-      },
-      {
-        code: 'OCA',
-        color: '',
-        colorbg: '',
-        name: 'Octopus Arm',
-        race: 'Aquatic',
-        str: '1',
-        spe: '-1',
-        def: '2',
-        cha: '2'
-      },
-      {
-        code: 'OCA',
-        color: '',
-        colorbg: '',
-        name: 'Octopus Arm',
-        race: 'Aquatic',
-        str: '1',
-        spe: '-1',
-        def: '2',
-        cha: '2'
-      }
+    
     ]
 
   } else {

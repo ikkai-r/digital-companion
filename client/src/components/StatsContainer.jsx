@@ -95,6 +95,13 @@ export default function StatsContainer({color, playernum, str, def, spe, cha}) {
         <TextInput id="small" type="number" sizing="sm" className='w-48 mt-2' />
       </div>
        
+
+      <div className='bg-text2 w-full flex justify-center items-center flex-col p-5 rounded-md'>
+      <h3 className="text-lg accent-text uppercase text-background ">
+        Input turn duration
+       </h3>
+        <TextInput id="small" type="number" sizing="sm" className='w-48 mt-2' />
+      </div>
          
        <div className="flex justify-center gap-4 mt-4">
        <Button color="success" onClick={() => setOpenModal(false)}>

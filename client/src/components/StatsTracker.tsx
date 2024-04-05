@@ -8,7 +8,6 @@ import { useState, useEffect } from 'react'
 export default function StatsTracker() {
 
   const [data, setData] = useState(null)
-  const [isLoading, setLoading] = useState(true)
 
   useEffect(() => {
 
@@ -17,14 +16,12 @@ export default function StatsTracker() {
       .then(response => response.json())
       .then(data => {
         setData(data)
-        setLoading(false)
       })
       .catch(error => {
         console.error('Error:', error)
       })
   }, [])
 
-  if (isLoading) return <p>Loading...</p>
   let PLAYERS;
   if (!data) {
     PLAYERS = [
