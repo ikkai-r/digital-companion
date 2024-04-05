@@ -33,20 +33,20 @@ export default function Buttons() {
             </div>
 
             <Modal show={openModal} className='h-full ' size="md" onClose={() => setOpenModal(false)} popup>
-                <Modal.Header className='bg-text' />
-                <Modal.Body className='bg-text rounded-md'>
-                    <div className="text-center primary-text bg-text flex justify-center flex-col items-center gap-4">
+                <Modal.Header className='bg-background' />
+                <Modal.Body className='bg-background'>
+                    <div className="text-center primary-text bg-background flex justify-center flex-col items-center gap-4">
 
 
-                        <p className="text-2xl accent-text uppercase text-background">
+                        <p className="text-2xl accent-text uppercase text-accent">
                             You can move
                         </p>
 
-                        <p className="text-7xl text-background p-2 rounded px-5 bg-accent accent-text">
+                        <p className="text-7xl text-background p-2 rounded px-5 bg-primary accent-text">
                             {move}
                         </p>
 
-                        <p className="text-2xl accent-text uppercase text-background">
+                        <p className="text-2xl accent-text uppercase text-accent">
                             tiles
                         </p>
 
@@ -54,7 +54,7 @@ export default function Buttons() {
 
 
                         <div className="flex justify-center gap-4 mt-4">
-                            <Button onClick={() => setOpenModal(false)} className='w-28' style={{ backgroundColor: '#05A895' }}>
+                            <Button onClick={() => setOpenModal(false)} className='w-28' style={{ backgroundColor: '#4056a1' }}>
                                 {"Okay!"}
                             </Button>
                         </div>
