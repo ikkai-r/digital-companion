@@ -4,6 +4,7 @@ import { MdDelete } from "react-icons/md";
 import { Button, Modal } from 'flowbite-react';
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { useSearchParams } from 'next/navigation'
+import type { CustomFlowbiteTheme } from "flowbite-react";
 
 export default function LimbContainer({limb}) {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -20,6 +21,62 @@ export default function LimbContainer({limb}) {
         setOpenModal(true);
     }
 
+        
+  const modalTheme: CustomFlowbiteTheme['modal'] = {
+
+      "root": {
+        "base": "fixed inset-x-0 top-0 z-50 h-screen overflow-y-auto overflow-x-hidden md:inset-0 md:h-full",
+        "show": {
+          "on": "flex bg-gray-900 bg-opacity-50 dark:bg-opacity-80",
+          "off": "hidden"
+        },
+        "sizes": {
+          "sm": "max-w-sm",
+          "md": "max-w-md",
+          "lg": "max-w-lg",
+          "xl": "max-w-xl",
+          "2xl": "max-w-2xl",
+          "3xl": "max-w-3xl",
+          "4xl": "max-w-4xl",
+          "5xl": "max-w-5xl",
+          "6xl": "max-w-6xl",
+          "7xl": "max-w-7xl"
+        },
+        "positions": {
+          "top-left": "items-start justify-start",
+          "top-center": "items-start justify-center",
+          "top-right": "items-start justify-end",
+          "center-left": "items-center justify-start",
+          "center": "items-center justify-center",
+          "center-right": "items-center justify-end",
+          "bottom-right": "items-end justify-end",
+          "bottom-center": "items-end justify-center",
+          "bottom-left": "items-end justify-start"
+        }
+      },
+      "content": {
+        "base": "relative w-full p-4 h-auto",
+        "inner": "relative flex max-h-[90dvh] flex-col rounded-lg bg-white shadow dark:bg-gray-700"
+      },
+      "body": {
+        "base": "flex-1 overflow-auto p-6",
+        "popup": "pt-0"
+      },
+      "header": {
+        "base": "flex items-start justify-between rounded-t border-b p-5 dark:border-gray-600",
+        "popup": "border-b-0 p-2",
+        "title": "text-xl font-medium text-gray-900 dark:text-white",
+        "close": {
+          "base": "ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white",
+          "icon": "h-8 w-8"
+        }
+      },
+      "footer": {
+        "base": "flex items-center space-x-2 rounded-b border-gray-200 p-6 dark:border-gray-600",
+        "popup": "border-t"
+      }
+    }
+
   return (
     <div className='w-full flex items-center justify-center'>
         <div className={` w-full ${limb.color} rounded-md p-3 mt-4 ${isDropdownOpen ? 'h-0 overflow-hidden hidden' : 'h-auto'}`} onClick={toggleDropdown}>
@@ -32,10 +89,10 @@ export default function LimbContainer({limb}) {
             />
 
             <div className='w-full'>
-             <p className='text-sm accent-text uppercase'>
+             <p className='text-lg accent-text uppercase'>
                         {limb.name}
                     </p>
-                    <p className='text-xs'>
+                    <p className='text-base'>
                     {limb.code} | {limb.race}
                     </p>
             </div>
@@ -54,10 +111,10 @@ export default function LimbContainer({limb}) {
                     height={90}
                     alt={limb.name}
                     />
-                    <p className='text-sm mt-3 accent-text uppercase'>
+                    <p className='text-base mt-3 accent-text uppercase'>
                         {limb.name}
                     </p>
-                    <p className='text-xs'>
+                    <p className='text-sm'>
                     {limb.code}
                     </p>
                 </div>
@@ -82,7 +139,7 @@ export default function LimbContainer({limb}) {
                 </div>
             )}
                    
-            <Modal show={openModal} className='h-full ' size="md" onClose={() => setOpenModal(false)} popup>
+            <Modal theme={modalTheme} show={openModal} className='h-full ' size="md" onClose={() => setOpenModal(false)} popup>
             <Modal.Header className='bg-background'/>
             <Modal.Body className='bg-background'>
             <div className="text-center primary-text bg-background">
