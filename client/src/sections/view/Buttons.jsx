@@ -5,16 +5,18 @@ import { Modal, Button } from 'flowbite-react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
+import axios from 'axios';
 
 export default function Buttons() {
     const [openModal, setOpenModal] = useState(false);
     const [combatModal, setCombatModal] = useState(false);
+    const [move, setMove] = useState(null);
     const [prey, setPrey] = useState(null);
     const searchParams = useSearchParams()
     const playerNum = searchParams.get('player')
     let otherPlayerNumbers = [1, 2, 3, 4];
     otherPlayerNumbers = otherPlayerNumbers.filter(num => num !== parseInt(playerNum, 10));
-    let move = 5;
+    
     const handleEnemyClick = (player) => {
         if (prey === player) {
           setPrey(null);
@@ -23,11 +25,28 @@ export default function Buttons() {
         }
       };
     
+    const setMoveNumber = () => {
+
+        const API_URL = process.env.NEXT_PUBLIC_BACKEND
+
+        fetch(`${API_URL}/move/${playerNum}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log("changed!")
+            setMove(data.number)
+        })
+        .catch(error => {
+            console.error('Error:', error)
+            console.log("here")
+        })
+
+        setOpenModal(true);
+    };
     
     return (
         <>
             <div className='w-full flex gap-2 justify-center mt-5'>
-                <button className='bg-accent2 rounded-md border-none accent-text text-background text-2xl p-2 w-full hover:bg-primary' onClick={() => setOpenModal(true)}> <p>MOVE</p></button>
+                <button className='bg-accent2 rounded-md border-none accent-text text-background text-2xl p-2 w-full hover:bg-primary' onClick={setMoveNumber}> <p>MOVE</p></button>
                 <button className='bg-accent rounded-md border-none accent-text text-background text-2xl p-2 w-full hover:bg-primary'> <p>EVENT</p></button>
                 <button className='bg-red-500 rounded-md border-none accent-text text-background text-2xl p-2 w-full hover:bg-primary' onClick={() => setCombatModal(true)}> <p>COMBAT</p></button>
             </div>

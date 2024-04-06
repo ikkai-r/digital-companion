@@ -232,7 +232,7 @@ app.get("/api/move/:player", (req, res) => {
     if (player < 1 || player > 4) {
         res.status(400).send("Invalid player number!")
     } else {
-        res.status(200).send(getRandomInt(3) + 6 - players[player - 1].length)
+        res.status(200).send({number: getRandomInt(3) + 6 - players[player - 1].length})
     }
 });
 
