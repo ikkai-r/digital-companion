@@ -3,12 +3,9 @@
 import React from 'react'
 import LimbContainer from './LimbContainer';
 import { useState, useEffect } from 'react'
-import { useSearchParams } from 'next/navigation'
 
-export default function LimbTracker() {
+export default function LimbTracker({playerView}) {
   const [data, setData] = useState(null)
-  const searchParams = useSearchParams()
-  const playerNum = searchParams.get('player')
 
   const COLORS = [
     {
@@ -29,7 +26,7 @@ export default function LimbTracker() {
 
   useEffect(() => {
     const API_URL = process.env.NEXT_PUBLIC_BACKEND
-    fetch(`${API_URL}/view_parts/${playerNum}`)
+    fetch(`${API_URL}/view_parts/${playerView}`)
       .then(response => response.json())
       .then(data => {
         setData(data)
@@ -38,7 +35,7 @@ export default function LimbTracker() {
         console.error('Error:', error)
         console.log("here")
       })
-  }, [])
+  }, [playerView])
 
   let LIMBS;
 

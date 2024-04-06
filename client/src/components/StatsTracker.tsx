@@ -5,7 +5,7 @@ import type { CustomFlowbiteTheme } from "flowbite-react";
 import StatsContainer from './StatsContainer';
 import { useState, useEffect } from 'react'
 
-export default function StatsTracker() {
+export default function StatsTracker({currentPlayer, setCurrentPlayer}) {
 
   const [data, setData] = useState(null)
 
@@ -120,10 +120,12 @@ export default function StatsTracker() {
 
   return (
 
+    <>
+    
     <div className='h-70 sm:h-70 xl:h-80 2xl:h-96 mt-4'>
 
       <Flowbite theme={{ theme: customTheme }}>
-        <Carousel slide={false} onSlideChange={(index) => console.log('onSlideChange()', index)}>
+        <Carousel slide={false} onSlideChange={(index) => setCurrentPlayer(String(index + 1))}>
 
           {PLAYERS.map(player => (
             <StatsContainer
@@ -139,6 +141,8 @@ export default function StatsTracker() {
         </Carousel>
       </Flowbite>
     </div>
+    
+    </>
 
   )
 }
