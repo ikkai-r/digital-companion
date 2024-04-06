@@ -69,7 +69,7 @@ export default function LimbTracker({playerView}) {
   const numLimb = LIMBS.length
 
   return (
-    <div className='w-full bg-text rounded-md mt-4 p-4'>
+    <div className='w-full bg-zinc-300 rounded-md mt-4 p-4'>
       <div className='w-full flex justify-between'>
         <p className='uppercase accent-text text-accent2 bold text-3xl'>
           Limbs

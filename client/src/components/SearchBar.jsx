@@ -27,14 +27,14 @@ export default function SearchBar() {
       sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: '100%', backgroundColor: '#4056a1' }}
       className='bg-[#4056a1]'
     >
-<input className="block border-none w-full disabled:cursor-not-allowed disabled:opacity-50 placeholder-gray-300 text-white primary-text p-2.5 text-sm rounded-lg" 
+<input className="block border-none w-full disabled:cursor-not-allowed disabled:opacity-50 placeholder-gray-300 text-white primary-text p-2.5 text-lg font-bold rounded-lg" 
         type="text" 
         style={{backgroundColor: 'rgb(64, 86, 161)'}} 
         placeholder="Add limb"
         value={inputValue}
         onChange={handleChange}/>      
-<IconButton type="button" sx={{ p: '10px' }} aria-label="search">
-        <SearchIcon sx={{color: '#F4B324'}}/>
+    <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
+        <SearchIcon sx={{color: '#ffffff'}}/>
       </IconButton>
     </Paper>
 
