@@ -81,9 +81,7 @@ export default function LimbContainer({limb}) {
                 </div>
                 </div>
             )}
-            
-            {/** Optional TODO: Center the modal in mobile */}
-       
+                   
             <Modal show={openModal} className='h-full ' size="md" onClose={() => setOpenModal(false)} popup>
             <Modal.Header className='bg-background'/>
             <Modal.Body className='bg-background'>

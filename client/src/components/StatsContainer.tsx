@@ -122,7 +122,7 @@ export default function StatsContainer({color, playernum, str, def, spe, cha}) {
               Select stat to add buff / debuff
             </h3>
 
-            <Select className='w-48 primary-text mt-2' required>
+            <Select className='w-48 primary-text mt-2' required style={{backgroundColor: '#0B0B0F', color: '#f0f0f4'}}>
                 <option value="Strength">Strength</option>
                 <option value="Defense">Defense</option>
                 <option value="Speed">Speed</option>
@@ -135,7 +135,7 @@ export default function StatsContainer({color, playernum, str, def, spe, cha}) {
               Select if buff or debuff
             </h3>
 
-            <Select className='w-48 primary-text mt-2' required>
+            <Select className='w-48 primary-text mt-2' required style={{backgroundColor: '#0B0B0F', color: '#f0f0f4'}}>
                 <option value="Buff">Buff</option>
                 <option value="Debuff">Debuff</option>
             </Select>
@@ -145,7 +145,7 @@ export default function StatsContainer({color, playernum, str, def, spe, cha}) {
             <h3 className="text-lg accent-text uppercase text-zinc-100 ">
               Input modifier number
             </h3>
-              <TextInput id="small" type="number" sizing="sm" className='w-48 mt-2' />
+              <TextInput style={{backgroundColor: '#0B0B0F', color: '#f0f0f4'}} id="small" type="number" sizing="sm" className='w-48 mt-2' />
             </div>
             
 
@@ -153,7 +153,7 @@ export default function StatsContainer({color, playernum, str, def, spe, cha}) {
             <h3 className="text-lg accent-text uppercase text-zinc-100 ">
               Input turn duration
             </h3>
-              <TextInput id="small" type="number" sizing="sm" className='w-48 mt-2' />
+              <TextInput style={{backgroundColor: '#0B0B0F', color: '#f0f0f4'}} id="small" type="number" sizing="sm" className='w-48 mt-2' />
             </div>
               
             <div className="flex justify-center gap-4 mt-4">
