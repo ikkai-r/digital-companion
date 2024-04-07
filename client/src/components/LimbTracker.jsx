@@ -33,7 +33,6 @@ export default function LimbTracker({playerView}) {
       })
       .catch(error => {
         console.error('Error:', error)
-        console.log("here")
       })
   }, [playerView])
 
@@ -85,6 +84,7 @@ export default function LimbTracker({playerView}) {
           <LimbContainer
             key={limb.code}
             limb={limb}
+            playerNow={playerView}
           />
         ))}
 

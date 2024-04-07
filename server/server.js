@@ -13,8 +13,8 @@ function newPart(id, name, str, spd, def, cha, fac) {
     return { id, name, str, spd, def, cha, fac }
 }
 
-function findPart(id) {
-    return parts.find(part => part.id === id)
+function findPartsStartingWith(str) {
+    return parts.filter(part => part.id.startsWith(str.toUpperCase()))
 }
 
 app.post('/api/setPlayer', (req, res) => {
@@ -152,18 +152,28 @@ app.get("/api/view_all_stats", (req, res) => {
     res.status(200).setHeader('Access-Control-Allow-Origin', '*').send(allStats)
 })
 
+app.get("/api/search_part/:id", (req, res) => {
+    const id = req.params.id
+    const parts = findPartsStartingWith(id)
+    if (!parts) {
+        res.status(200).setHeader('Access-Control-Allow-Origin', '*').send([])
+    } else {
+        res.status(200).setHeader('Access-Control-Allow-Origin', '*').send(parts)
+    }
+});
+
 app.post("/api/add/:player/:part", (req, res) => {
     const player = req.params.player
     const part = req.params.part
     if (player < 1 || player > 4) {
-        res.status(400).send("Invalid player number!")
+        res.status(400).setHeader('Access-Control-Allow-Origin', '*').send("Invalid player number!")
     } else {
         const partObj = parts.find(p => p.id === part)
         if (!partObj) {
-            res.status(400).send("Invalid part ID!")
+            res.status(400).setHeader('Access-Control-Allow-Origin', '*').send("Invalid part ID!")
         } else {
             players[player - 1].push(partObj)
-            res.status(200).send("Part added!")
+            res.status(200).setHeader('Access-Control-Allow-Origin', '*').send("Part added!")
         }
     }
 });
@@ -234,7 +244,11 @@ app.get("/api/move/:player", (req, res) => {
     if (player < 1 || player > 4) {
         res.status(400).send("Invalid player number!")
     } else {
-        res.status(200).send({number: getRandomInt(3) + 6 - players[player - 1].length})
+        let number = getRandomInt(4) + 6 - players[player - 1].length
+        if (number < 0) {
+           number = 0 
+        }
+        res.status(200).send({number})
     }
 });
 
