@@ -93,12 +93,10 @@ export default function Buttons() {
         fetch(`${API_URL}/move/${playerNum}`)
         .then(response => response.json())
         .then(data => {
-            console.log("changed!")
             setMove(data.number)
         })
         .catch(error => {
             console.error('Error:', error)
-            console.log("here")
         })
 
         setOpenModal(true);

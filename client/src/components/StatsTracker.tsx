@@ -4,10 +4,13 @@ import { Carousel, Flowbite } from 'flowbite-react'
 import type { CustomFlowbiteTheme } from "flowbite-react";
 import StatsContainer from './StatsContainer';
 import { useState, useEffect } from 'react'
+import { useSearchParams } from 'next/navigation'
 
 export default function StatsTracker({currentPlayer, setCurrentPlayer}) {
 
   const [data, setData] = useState(null)
+  const searchParams = useSearchParams()
+  const playerNum = searchParams.get('player')
 
   useEffect(() => {
 
@@ -83,6 +86,9 @@ export default function StatsTracker({currentPlayer, setCurrentPlayer}) {
     PLAYERS[1].color = '#CD3AFF'
     PLAYERS[2].color = '#E4273B'
     PLAYERS[3].color = '#61ebff'
+    while (PLAYERS[0].playerNum != playerNum) {
+      PLAYERS.push(PLAYERS.shift())
+    }
   }
 
   const carouselTheme: CustomFlowbiteTheme['carousel'] = {
@@ -111,8 +117,12 @@ export default function StatsTracker({currentPlayer, setCurrentPlayer}) {
     <>
     
     <div className='h-70 sm:h-70 xl:h-80 2xl:h-96 mt-4'>
-
-        <Carousel slide={false} theme={carouselTheme} onSlideChange={(index) => setCurrentPlayer(String(index + 1))}>
+        <Carousel slide={false} theme={carouselTheme} onSlideChange={(index) => {
+          console.log(index)
+            let num = index + parseInt(playerNum)
+            if(num > 4) num = num - 4
+            setCurrentPlayer(String(num))
+          }}>
 
           {PLAYERS.map(player => (
             <StatsContainer
