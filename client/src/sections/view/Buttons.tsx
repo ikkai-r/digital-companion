@@ -1,15 +1,19 @@
 "use client"
 
 import React, { useState } from 'react'
-import { Modal, Button, Flowbite } from 'flowbite-react'
+import { Modal, Button, Flowbite, Select } from 'flowbite-react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import type { CustomFlowbiteTheme } from "flowbite-react";
+import D20 from '@/components/D20'
 
 export default function Buttons() {
     const [openModal, setOpenModal] = useState(false);
     const [combatModal, setCombatModal] = useState(false);
+    const [eventModal, setEventModal] = useState(false);
+    const [showResults, setShowResults] = useState(false);
+
     const [move, setMove] = useState(null);
     const [prey, setPrey] = useState(null);
     const searchParams = useSearchParams()
@@ -104,7 +108,7 @@ export default function Buttons() {
         <>
             <div className='w-full flex gap-2 justify-center mt-5'>
                 <button className='bg-accent2 rounded-md border-none accent-text text-zinc-200 text-2xl p-2 w-full hover:bg-primary' onClick={setMoveNumber}> <p>MOVE</p></button>
-                <button className='bg-accent rounded-md border-none accent-text text-zinc-200 text-2xl p-2 w-full hover:bg-primary'> <p>EVENT</p></button>
+                <button className='bg-accent rounded-md border-none accent-text text-zinc-200 text-2xl p-2 w-full hover:bg-primary' onClick={() => setEventModal(true)}> <p>EVENT</p></button>
                 <button className='bg-red-500 rounded-md border-none accent-text text-zinc-200 text-2xl p-2 w-full hover:bg-primary' onClick={() => setCombatModal(true)}> <p>COMBAT</p></button>
             </div>
 
@@ -115,7 +119,11 @@ export default function Buttons() {
                 <Modal.Body className='bg-background'>
                     <div className="text-center primary-text bg-background py-5 flex justify-center flex-col items-center gap-4">
 
-
+                    <div className='w-full'>
+                          <p className="text-base accent-text bg-emerald-500 p-2 rounded-md w-10 text-text">
+                           2x
+                          </p>
+                        </div>
                         <p className="text-3xl accent-text uppercase text-accent">
                             You can move
                         </p>
@@ -127,7 +135,6 @@ export default function Buttons() {
                         <p className="text-3xl accent-text uppercase text-accent">
                             tiles
                         </p>
-
 
 
 
@@ -176,6 +183,61 @@ export default function Buttons() {
                     </div>
                 </Modal.Body>
             </Modal>
+            </Flowbite>
+
+            <Flowbite theme={{ theme: customTheme }}>
+
+            <Modal show={eventModal} className='h-min-screen' size="md" onClose={() => setEventModal(false)} popup>
+    <Modal.Header className='bg-background'/>
+        <Modal.Body className='bg-background'>
+        <div className="py-5 primary-text bg-background flex justify-center flex-col items-center gap-4">
+        
+        {
+          showResults && (
+            <div className='w-full flex justify-center items-center flex-col p-4'>
+            <D20
+              number='10'/>
+
+            <Button className={`w-36 text-xl primary-text mt-20 p-2`} size="4xl" style={{ backgroundColor: '#4056a1' }}  onClick={() => {
+            setEventModal(false);
+            setShowResults(false);
+          }}>
+                  {"Okay!"}
+              </Button>
+            </div>
+          )
+
+        }
+
+
+        {
+          !showResults && (
+            <>
+            <div className='bg-accent text-center  w-full flex justify-center items-center flex-col p-4 rounded-md'>
+            <h3 className="text-lg accent-text uppercase text-zinc-100">
+              Select modifier
+            </h3>
+
+            <Select className='w-48 primary-text mt-2' required style={{backgroundColor: '#0B0B0F', color: '#f0f0f4'}}>
+                <option value="Strength">Strength</option>
+                <option value="Defense">Defense</option>
+                <option value="Speed">Speed</option>
+                <option value="Charisma">Charisma</option>
+                <option value="None">None</option>
+            </Select>
+        </div>
+
+        <Button className={`w-36 text-3xl accent-text mt-5`} size="4xl" style={{ backgroundColor: '#FB5A48' }} onClick={() => setShowResults(true)}>
+              {"ROLL!"}
+          </Button>
+          </>
+          )
+
+        }
+        
+        </div>
+        </Modal.Body>
+    </Modal> 
             </Flowbite>
         </>
     )
