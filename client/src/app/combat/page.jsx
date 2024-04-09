@@ -10,8 +10,10 @@ export default function CombatPage() {
   const predator = searchParams.get('ptor')
   const prey = searchParams.get('prey')
 
-  const [predatorScore, setPredatorScore] = useState(null);
-  const [preyScore, setPreyScore] = useState(null);
+  const [predatorScore, setPredatorScore] = useState(3);
+  const [preyScore, setPreyScore] = useState(2);
+  const [rollNumPredator, setRollNumPredator] = useState(1);
+  const [rollNumPrey, setRollNumPrey] = useState(19);
   const [rollPredator, setRollPredator] = useState(false);
   const [rollPrey, setRollPrey] = useState(false);
   const [showResult, setShowResult] = useState(false);
@@ -49,20 +51,20 @@ export default function CombatPage() {
                 {"Roll"}
           </Button>
           <D20
-            number='2'
+            number={rollNumPredator}
           />
         </div>
 
         <div className="bg-accent text-center py-2" style={{width: '100%'}}>
           <div className='w-full text-center flex gap-5 items-center justify-center'>
-          <p className='text-lg'>P1</p>
-           <p className='text-lg'>P2</p>
+          <p className='text-lg'>P{predator}</p>
+           <p className='text-lg'>P{prey}</p>
           </div>
-           <p className='text-4xl'>2 : 1</p>
+           <p className='text-4xl'>{predatorScore} : {preyScore}</p>
         </div>
         <div className='w-full bg-secondary p-10 h-[10em] flex flex-col justify-center items-center'>
           <D20
-            number='5'
+            number={rollNumPrey}
           />
           <Button className='w-28 mt-16' style={{ backgroundColor: '#FB5A48' }} onClick={handleRollPrey}>
                                 {"Roll"}
