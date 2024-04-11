@@ -21,7 +21,8 @@ export default function ViewCharacterPage() {
           setCurrentPlayer={setCurrentPlayer}/>
         <LimbTracker
           playerView={currentPlayer}/>
-        <Buttons/>
+        <Buttons
+        playerView={currentPlayer}/>
       </div>
     </section>
   )

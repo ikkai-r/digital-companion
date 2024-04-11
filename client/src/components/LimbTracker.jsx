@@ -82,7 +82,6 @@ export default function LimbTracker({playerView}) {
 
         {LIMBS.map(limb => (
           <LimbContainer
-            key={limb.code}
             limb={limb}
             playerNow={playerView}
           />

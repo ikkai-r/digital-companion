@@ -187,7 +187,6 @@ export default function StatsContainer({ color, playernum, str, def, spe, cha })
                     .catch(error => {
                       console.error('Error:', error)
                     })
-                  console.log(stat, modifier, duration)
                 }
 
               }}>

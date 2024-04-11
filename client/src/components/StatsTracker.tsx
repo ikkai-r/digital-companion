@@ -118,7 +118,6 @@ export default function StatsTracker({currentPlayer, setCurrentPlayer}) {
     
     <div className='h-70 sm:h-70 xl:h-80 2xl:h-96 mt-4'>
         <Carousel slide={false} theme={carouselTheme} onSlideChange={(index) => {
-          console.log(index)
             let num = index + parseInt(playerNum)
             if(num > 4) num = num - 4
             setCurrentPlayer(String(num))

@@ -12,7 +12,6 @@ export default function LimbContainer({ limb, playerNow }) {
   const searchParams = useSearchParams()
   const playerNum = searchParams.get('player')
 
-  console.log(playerNum == playerNow)
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);

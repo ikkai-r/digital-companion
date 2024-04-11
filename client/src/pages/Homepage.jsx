@@ -11,7 +11,6 @@ export default function Homepage() {
   const setPlayerNumber = async (number) => {
     try {
         const response = await axios.post('http://localhost:8080/api/setPlayer', { playerNumber: number });
-        console.log(response.data);
         setSelectedNumber(number);
     } catch (error) {
         console.error('Error setting player number:', error);

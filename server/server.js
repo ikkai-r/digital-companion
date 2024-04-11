@@ -50,7 +50,7 @@ parts.push(newPart("OCA", "Octopus Arms", 1, -1, 2, 2, "Aquatic"))
 
 parts.push(newPart("HML", "Human Legs", 1, 1, 1, 1, "Terrestrial"))
 parts.push(newPart("CHL", "Chicken Legs", 1, 2, 1, -1, "Terrestrial"))
-parts.push(newPart("SPL", "Spider Legs*", 1, 1, 2, 0, "Terrestrial"))
+parts.push(newPart("SPL", "Spider Legs", 1, 1, 2, 0, "Terrestrial"))
 parts.push(newPart("HOL", "Horse Legs", 2, 2, 0, 0, "Terrestrial"))
 parts.push(newPart("BFL", "Basic Fins", 0, 1, 1, 0, "Aquatic"))
 parts.push(newPart("DFL", "Dorsal Fins", 0, 1, 1, 1, "Aquatic"))
@@ -115,22 +115,22 @@ function useBuff(player) {
 app.post("/api/reset", (req, res) => {
     players = [[], [], [], []]
     buffs = [[], [], [], []]
-    res.status(200).send("Reset successful!")
+    res.status(200).setHeader('Access-Control-Allow-Origin', '*').send("Reset successful!")
 })
 
 app.get("/api/view/:player", (req, res) => {
     const player = req.params.player
     if (player < 1 || player > 4) {
-        res.status(400).send("Invalid player number!")
+        res.status(400).setHeader('Access-Control-Allow-Origin', '*').send("Invalid player number!")
     } else {
-        res.status(200).send({ parts: players[player - 1], stats: getStats(player), buffs: getBuffs(player) })
+        res.status(200).setHeader('Access-Control-Allow-Origin', '*').send({ parts: players[player - 1], stats: getStats(player), buffs: getBuffs(player) })
     }
 })
 
 app.get("/api/view_parts/:player", (req, res) => {
     const player = req.params.player
     if (player < 1 || player > 4) {
-        res.status(400).send("Invalid player number!")
+        res.status(400).setHeader('Access-Control-Allow-Origin', '*').send("Invalid player number!")
     } else {
         res.status(200).setHeader('Access-Control-Allow-Origin', '*').send(players[player - 1])
     }
@@ -205,14 +205,34 @@ app.post("/api/buff/:player/:stat/:buff/:duration", (req, res) => {
     const buff = parseInt(req.params.buff)
     const duration = parseInt(req.params.duration)
     if (player < 1 || player > 4) {
-        res.status(400).send("Invalid player number!")
+        res.status(400).setHeader('Access-Control-Allow-Origin', '*').send("Invalid player number!")
     } else if (stat !== "str" && stat !== "spd" && stat !== "def" && stat !== "cha") {
-        res.status(400).send("Invalid stat!")
+        res.status(400).setHeader('Access-Control-Allow-Origin', '*').send("Invalid stat!")
     } else if (isNaN(buff) || isNaN(duration)) {
-        res.status(400).send("Buff and duration must be numbers!")
+        res.status(400).setHeader('Access-Control-Allow-Origin', '*').send("Buff and duration must be numbers!")
     } else {
         addBuff(player, stat, buff, duration)
-        res.status(200).send("Buff added!")
+        res.status(200).setHeader('Access-Control-Allow-Origin', '*').send("Buff added!")
+    }
+});
+
+app.get("/api/event/:player/:stat", (req, res) => {
+    const player = req.params.player
+    const stat = req.params.stat
+    if (player < 1 || player > 4) {
+        res.status(400).setHeader('Access-Control-Allow-Origin', '*').send("Invalid player number!")
+    } else if (stat !== "str" && stat !== "spd" && stat !== "def" && stat !== "cha" && stat !== "none") {
+        res.status(400).setHeader('Access-Control-Allow-Origin', '*').send("Invalid stat!")
+    } else {
+        let roll = getRandomInt(20) + 1
+        if(stat === "none") {
+            res.status(200).setHeader('Access-Control-Allow-Origin', '*').send({roll})
+        } else {
+            const stats = getStats(player)
+            const buffs = getBuffs(player)
+            roll += stats[stat] + buffs[stat]
+            res.status(200).setHeader('Access-Control-Allow-Origin', '*').send({roll})
+        }
     }
 });
 
@@ -220,7 +240,7 @@ app.post("/api/battle/:player1/:player2", (req, res) => {
     const player1 = req.params.player1
     const player2 = req.params.player2
     if (player1 < 1 || player1 > 4 || player2 < 1 || player2 > 4) {
-        res.status(400).send("Invalid player number!")
+        res.status(400).setHeader('Access-Control-Allow-Origin', '*').send("Invalid player number!")
     } else {
         const stats1 = getStats(player1)
         const stats2 = getStats(player2)
@@ -228,10 +248,10 @@ app.post("/api/battle/:player1/:player2", (req, res) => {
         const buffs2 = getBuffs(player2)
         const total1 = { str: stats1.str + buffs1.str, spd: stats1.spd + buffs1.spd, def: stats1.def + buffs1.def, cha: stats1.cha + buffs1.cha }
         const total2 = { str: stats2.str + buffs2.str, spd: stats2.spd + buffs2.spd, def: stats2.def + buffs2.def, cha: stats2.cha + buffs2.cha }
-        const result = { player1: total1, player2: total2 }
+        const result = { predator: total1, prey: total2 }
         useBuff(player1)
         useBuff(player2)
-        res.status(200).send(result)
+        res.status(200).setHeader('Access-Control-Allow-Origin', '*').send(result)
     }
 });
 
@@ -242,13 +262,13 @@ function getRandomInt(max) {
 app.get("/api/move/:player", (req, res) => {
     const player = req.params.player
     if (player < 1 || player > 4) {
-        res.status(400).send("Invalid player number!")
+        res.status(400).setHeader('Access-Control-Allow-Origin', '*').send("Invalid player number!")
     } else {
         let number = getRandomInt(4) + 6 - players[player - 1].length
         if (number < 0) {
            number = 0 
         }
-        res.status(200).send({number})
+        res.status(200).setHeader('Access-Control-Allow-Origin', '*').send({number})
     }
 });
 
