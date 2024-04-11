@@ -45,8 +45,8 @@ export default function CombatPage() {
 
   return (
     <section id="CombatPage" className='bg-background w-full min-h-screen text-text primary-text flex flex-col'>
-      <div className='w-full flex flex-col text-3xl accent-text justify-center'>
-        <div className='w-full bg-accent3 p-10 h-[10em] flex flex-col justify-center items-center'>
+      <div className='w-full flex flex-col min-h-screen text-3xl accent-text justify-center'>
+        <div className='w-full bg-accent3 p-10 flex flex-col justify-center items-center' style={{ flex: '1' }}>
         <Button className='w-28 mb-10' style={{ backgroundColor: '#4056a1' }} onClick={handleRollPredator}>
                 {"Roll"}
           </Button>
@@ -55,14 +55,15 @@ export default function CombatPage() {
           />
         </div>
 
-        <div className="bg-accent text-center py-2" style={{width: '100%'}}>
+        <div className="bg-accent text-center w-full py-1" >
           <div className='w-full text-center flex gap-5 items-center justify-center'>
           <p className='text-lg'>P{predator}</p>
            <p className='text-lg'>P{prey}</p>
           </div>
            <p className='text-4xl'>{predatorScore} : {preyScore}</p>
         </div>
-        <div className='w-full bg-secondary p-10 h-[10em] flex flex-col justify-center items-center'>
+
+        <div className='w-full bg-secondary p-10 flex flex-col justify-center items-center' style={{ flex: '1' }}>
           <D20
             number={rollNumPrey}
           />
@@ -70,6 +71,7 @@ export default function CombatPage() {
                                 {"Roll"}
                             </Button>
         </div>
+
       </div>
 
       <Modal show={showResult} className='h-full ' size="md" onClose={() => setShowResult(false)} popup>
