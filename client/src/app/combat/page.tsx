@@ -231,7 +231,7 @@ export default function CombatPage() {
               <Button onClick={() => {
                 if (predatorScore == 3) {
                   const roll = Math.floor(Math.random() * 8) + 1;
-                  if (roll <= preyPartsNum) {
+                  if (roll <= preyPartsNum && preyPartsNum !== null) {
                     setShowStealResult(`P${predator} has successfully stolen a limb! Sorry P${prey}!`)
                   } else {
                     setShowStealResult(`P${predator} has failed to steal a limb! P${prey} is safe!`)
@@ -240,7 +240,7 @@ export default function CombatPage() {
                   setShowSteal(true);
                 } else if (preyScore == 3) {
                   const roll = Math.floor(Math.random() * 8) + 1;
-                  if (roll <= predatorPartsNum) {
+                  if (roll <= predatorPartsNum && predatorPartsNum !== null) {
                     setShowStealResult(`P${prey} has successfully stolen a limb! Sorry P${predator}!`)
                   }
                   else {
@@ -266,7 +266,7 @@ export default function CombatPage() {
       <Modal show={showStat} theme={modalTheme} className='h-full ' size="md" onClose={() => setShowStat(false)} popup>
         <Modal.Header className='bg-background' />
         <Modal.Body className='bg-background'>
-          {predatorStat != 'loading' && preyStat != 'loading' && predatorPartsNum != 'loading' && preyPartsNum != 'loading' &&
+          {predatorStat !== null && preyStat !== null && predatorPartsNum !== null && preyPartsNum !== null &&
             <div className="text-center primary-text bg-background py-5 flex justify-center flex-col items-center gap-1">
               <p className="text-2xl accent-text text-accent mb-0">
                 This battle will use...
@@ -285,7 +285,7 @@ export default function CombatPage() {
               </div>
             </div>
           }
-          {!(predatorStat != 'loading' && preyStat != 'loading' && predatorPartsNum != 'loading' && preyPartsNum != 'loading') &&
+          {!(predatorStat !== null && preyStat !== null && predatorPartsNum !== null && preyPartsNum !== null) &&
             <div className="text-center primary-text bg-background py-5 flex justify-center flex-col items-center gap-1">
 
               <p className="text-3xl accent-text uppercase text-accent3 my-0">
@@ -300,7 +300,7 @@ export default function CombatPage() {
       <Modal show={showSteal} theme={modalTheme} className='h-full ' size="md" onClose={() => window.location.href = `/view?player=${predator}`} popup>
         <Modal.Header className='bg-background' />
         <Modal.Body className='bg-background'>
-          {predatorStat != 'loading' && preyStat != 'loading' && predatorPartsNum != 'loading' && preyPartsNum != 'loading' &&
+          {predatorStat !== null && preyStat !== null && predatorPartsNum !== null && preyPartsNum !== null &&
             <div className="text-center primary-text bg-background py-5 flex justify-center flex-col items-center gap-1">
               <p className="text-2xl accent-text uppercase text-accent mb-0">
                 {showStealResult}
@@ -313,7 +313,7 @@ export default function CombatPage() {
               </div>
             </div>
           }
-          {!(predatorStat != 'loading' && preyStat != 'loading' && predatorPartsNum != 'loading' && preyPartsNum != 'loading') &&
+          {!(predatorStat !== null && preyStat !== null && predatorPartsNum !== null && preyPartsNum !== null) &&
             <div className="text-center primary-text bg-background py-5 flex justify-center flex-col items-center gap-1">
 
               <p className="text-3xl accent-text uppercase text-accent3 my-0">
