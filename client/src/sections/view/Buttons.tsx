@@ -239,7 +239,8 @@ export default function Buttons({ playerView }) {
                 showResults && (
                   <div className='w-full flex justify-center items-center flex-col p-4'>
                     <D20
-                      number={results} />
+                      number={results} 
+                      prey={0}/>
 
                     <Button className={`w-36 text-xl primary-text mt-20 p-2`} size="4xl" style={{ backgroundColor: '#4056a1' }} onClick={() => {
                       setEventModal(false);
