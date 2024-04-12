@@ -231,7 +231,7 @@ export default function CombatPage() {
               <Button onClick={() => {
                 if (predatorScore == 3) {
                   const roll = Math.floor(Math.random() * 8) + 1;
-                  if (roll <= preyPartsNum && preyPartsNum !== null) {
+                  if (preyPartsNum !== null && roll <= preyPartsNum) {
                     setShowStealResult(`P${predator} has successfully stolen a limb! Sorry P${prey}!`)
                   } else {
                     setShowStealResult(`P${predator} has failed to steal a limb! P${prey} is safe!`)
@@ -240,7 +240,7 @@ export default function CombatPage() {
                   setShowSteal(true);
                 } else if (preyScore == 3) {
                   const roll = Math.floor(Math.random() * 8) + 1;
-                  if (roll <= predatorPartsNum && predatorPartsNum !== null) {
+                  if (predatorPartsNum !== null && roll <= predatorPartsNum) {
                     setShowStealResult(`P${prey} has successfully stolen a limb! Sorry P${predator}!`)
                   }
                   else {
