@@ -83,17 +83,17 @@ export default function CombatPage() {
   const [preyPartsNum, setPreyPartsNum] = useState(null);
   const [predatorStat, setPredatorStat] = useState(null);
   const [preyStat, setPreyStat] = useState(null);
-  const [statIndex, setStatIndex] = useState('');
+  const [statIndex, setStatIndex] = useState(null);
 
   if (statIndex === null)
-    setStatIndex(String(Math.floor(Math.random() * 4)));
+    setStatIndex(Math.floor(Math.random() * 4));
   const statLong = ['Strength', 'Defense', 'Speed', 'Charisma'][statIndex];
   const stat = ['str', 'def', 'spd', 'cha'][statIndex];
 
 
   useEffect(() => {
     const API_URL = process.env.NEXT_PUBLIC_BACKEND
-    if (predatorPartsNum === 'loading') {
+    if (predatorPartsNum === null) {
       fetch(`${API_URL}/view_parts/${predator}`)
         .then(response => response.json())
         .then(data => {
@@ -103,7 +103,7 @@ export default function CombatPage() {
           console.error('Error:', error)
         })
     }
-    if (preyPartsNum === 'loading') {
+    if (preyPartsNum === null) {
       fetch(`${API_URL}/view_parts/${prey}`)
         .then(response => response.json())
         .then(data => {
@@ -113,7 +113,7 @@ export default function CombatPage() {
           console.error('Error:', error)
         })
     }
-    if (predatorStat === 'loading' || preyStat === 'loading') {
+    if (predatorStat === null || preyStat === null) {
       fetch(`${API_URL}/battle/${predator}/${prey}`, {
         method: 'POST'
       })
