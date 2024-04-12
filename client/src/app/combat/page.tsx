@@ -170,14 +170,14 @@ export default function CombatPage() {
   const handleRollPredator = () => {
     if (!rollPredator && predatorStat !== null) {
       setRollPredator(true);
-      setRollNumPredator(Math.floor(Math.random() * 20) + 1 + predatorStat);
+      setRollNumPredator(String(Math.floor(Math.random() * 20) + 1 + predatorStat));
     }
   };
 
   const handleRollPrey = () => {
     if (!rollPrey && preyStat !== null) {
       setRollPrey(true);
-      setRollNumPrey(Math.floor(Math.random() * 20) + 1 + preyStat);
+      setRollNumPrey(String(Math.floor(Math.random() * 20) + 1 + preyStat));
 
     }
   };
