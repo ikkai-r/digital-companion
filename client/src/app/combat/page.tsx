@@ -182,6 +182,10 @@ export default function CombatPage() {
     }
   };
 
+  const capitalizeFirstLetter = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 
   return (
     <section id="CombatPage" className='bg-background w-full min-h-screen text-text primary-text flex flex-col'>
@@ -194,10 +198,10 @@ export default function CombatPage() {
             number={rollNumPrey}
             prey={1}
           />
-          <p className='rotate-180 text-2xl pb-12'>P{prey}</p>
+          <p className='rotate-180 text-2xl pb-12'>P{prey}{preyStat === null ? '': (': ' + capitalizeFirstLetter(stat) + ' of ' + ((preyStat < 0) ? preyStat : '+' + preyStat))}</p>
         </div>
 
-        <div className="bg-accent text-center w-full py-1" >
+        <div className="bg-black text-center w-full py-1" >
           <div className='w-full text-center flex gap-5 items-center justify-center'>
             <p className='text-lg'>P{predator}</p>
             <p className='text-lg'>P{prey}</p>
@@ -206,7 +210,7 @@ export default function CombatPage() {
         </div>
 
         <div className='w-full bg-secondary p-10 flex flex-col justify-center items-center' style={{ flex: '1' }}>
-        <p className='text-2xl pb-5'>P{predator}</p>
+        <p className='text-2xl pb-5'>P{predator}{predatorStat === null ? '': (': ' + capitalizeFirstLetter(stat) + ' of ' + ((predatorStat < 0) ? predatorStat : '+' + predatorStat))}</p>
           <D20
             number={rollNumPredator}
             prey={0}
