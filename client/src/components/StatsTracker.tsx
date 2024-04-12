@@ -12,6 +12,17 @@ export default function StatsTracker({currentPlayer, setCurrentPlayer}) {
   const searchParams = useSearchParams()
   const playerNum = searchParams?.get('player') ?? '';
 
+  interface Player {
+    color: string;
+    playerNum: string;
+    stats: {
+      str: string;
+      def: string;
+      spd: string;
+      cha: string;
+    };
+  }
+
   useEffect(() => {
 
     const API_URL = process.env.NEXT_PUBLIC_BACKEND
@@ -25,7 +36,7 @@ export default function StatsTracker({currentPlayer, setCurrentPlayer}) {
       })
   }, [])
 
-  let PLAYERS;
+  let PLAYERS: Player[];
   if (!data) {
     PLAYERS = [
       {
