@@ -79,11 +79,11 @@ export default function CombatPage() {
   const [showTextButton, setShowTextButton] = useState("Okay!");
   const [showSteal, setShowSteal] = useState(false);
   const [showStealResult, setShowStealResult] = useState('');
-  const [predatorPartsNum, setPredatorPartsNum] = useState(null);
-  const [preyPartsNum, setPreyPartsNum] = useState(null);
-  const [predatorStat, setPredatorStat] = useState(null);
-  const [preyStat, setPreyStat] = useState(null);
-  const [statIndex, setStatIndex] = useState(null);
+  const [predatorPartsNum, setPredatorPartsNum] = useState<number | null>(null);
+  const [preyPartsNum, setPreyPartsNum] = useState<number | null>(null);
+  const [predatorStat, setPredatorStat] = useState<number | null>(null);
+  const [preyStat, setPreyStat] = useState<number | null>(null);
+  const [statIndex, setStatIndex] = useState<number | null>(null);
 
   if (statIndex === null)
     setStatIndex(Math.floor(Math.random() * 4));
