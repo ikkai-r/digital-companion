@@ -11,7 +11,7 @@ export default function SearchBar() {
   const [showDiv, setShowDiv] = useState(false);
   const [limbs, setLimbs] = useState([]);
   const searchParams = useSearchParams()
-  const playerNum = searchParams.get('player')
+  const playerNum = searchParams?.get('player') ?? '';
 
   const handleChange = (e) => {
     setInputValue(e.target.value);

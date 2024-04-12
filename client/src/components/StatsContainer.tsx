@@ -10,7 +10,7 @@ export default function StatsContainer({ color, playernum, str, def, spe, cha })
 
   const [openModal, setOpenModal] = useState(false);
   const searchParams = useSearchParams()
-  const playerNum = searchParams.get('player')
+  const playerNum = searchParams?.get('player') ?? '';
 
   const modalTheme: CustomFlowbiteTheme["modal"] = {
     "root": {

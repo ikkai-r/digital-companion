@@ -10,7 +10,7 @@ export default function StatsTracker({currentPlayer, setCurrentPlayer}) {
 
   const [data, setData] = useState(null)
   const searchParams = useSearchParams()
-  const playerNum = searchParams.get('player')
+  const playerNum = searchParams?.get('player') ?? '';
 
   useEffect(() => {
 

@@ -10,7 +10,7 @@ export default function LimbContainer({ limb, playerNow }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const searchParams = useSearchParams()
-  const playerNum = searchParams.get('player')
+  const playerNum = searchParams?.get('player') ?? '';
 
 
   const toggleDropdown = () => {
