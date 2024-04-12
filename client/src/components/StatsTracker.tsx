@@ -28,8 +28,8 @@ export default function StatsTracker({currentPlayer, setCurrentPlayer}) {
     const API_URL = process.env.NEXT_PUBLIC_BACKEND
     fetch(`${API_URL}/view_all_stats`)
       .then(response => response.json())
-      .then(data => {
-        setData(data)
+      .then((data: Player[]) => { // Specify the type of data as Player[]
+        setData(data);
       })
       .catch(error => {
         console.error('Error:', error)
