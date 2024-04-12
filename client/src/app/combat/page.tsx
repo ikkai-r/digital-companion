@@ -83,7 +83,7 @@ export default function CombatPage() {
   const [preyPartsNum, setPreyPartsNum] = useState(null);
   const [predatorStat, setPredatorStat] = useState(null);
   const [preyStat, setPreyStat] = useState(null);
-  const [statIndex, setStatIndex] = useState(null);
+  const [statIndex, setStatIndex] = useState('');
 
   if (statIndex === null)
     setStatIndex(String(Math.floor(Math.random() * 4)));
