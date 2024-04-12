@@ -99,7 +99,7 @@ export default function Buttons({ playerView }) {
       .then(response => response.json())
       .then(data => {
         let move = data.number
-        const random = Math.floor(Math.random() * 10);
+        const random = Math.floor(Math.random() * 100);
         switch (random) {
           case 0:
           case 1:
