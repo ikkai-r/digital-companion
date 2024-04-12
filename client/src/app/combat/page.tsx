@@ -9,8 +9,8 @@ import type { CustomFlowbiteTheme } from "flowbite-react";
 
 export default function CombatPage() {
   const searchParams = useSearchParams()
-  const predator = searchParams.get('ptor')
-  const prey = searchParams.get('prey')
+  const predator = searchParams?.get('ptor')
+  const prey = searchParams?.get('prey')
 
   const modalTheme: CustomFlowbiteTheme['modal'] = {
 
