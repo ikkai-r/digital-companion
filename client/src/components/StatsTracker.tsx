@@ -8,27 +8,16 @@ import { useSearchParams } from 'next/navigation'
 
 export default function StatsTracker({currentPlayer, setCurrentPlayer}) {
 
-  const [data, setData] = useState<Player[] | null>(null);
+  const [data, setData] = useState<any[]>([])
   const searchParams = useSearchParams()
   const playerNum = searchParams?.get('player') ?? '';
-
-  interface Player {
-    color: string;
-    playerNum: string;
-    stats: {
-      str: string;
-      def: string;
-      spd: string;
-      cha: string;
-    };
-  }
 
   useEffect(() => {
 
     const API_URL = process.env.NEXT_PUBLIC_BACKEND
     fetch(`${API_URL}/view_all_stats`)
       .then(response => response.json())
-      .then((data: Player[]) => { // Specify the type of data as Player[]
+      .then((data) => { // Specify the type of data as Player[]
         setData(data);
       })
       .catch(error => {
@@ -36,7 +25,7 @@ export default function StatsTracker({currentPlayer, setCurrentPlayer}) {
       })
   }, [])
 
-  let PLAYERS: Player[];
+  let PLAYERS: any[] = [];
   if (!data) {
     PLAYERS = [
       {
@@ -81,6 +70,8 @@ export default function StatsTracker({currentPlayer, setCurrentPlayer}) {
       },
     ]
   } else {
+    // TODO: cannot set properties of undefined (setting 'color');
+
     PLAYERS = data.map((player) => {
       return {
         color: player.color,
@@ -97,7 +88,7 @@ export default function StatsTracker({currentPlayer, setCurrentPlayer}) {
     PLAYERS[1].color = '#CD3AFF'
     PLAYERS[2].color = '#E4273B'
     PLAYERS[3].color = '#61ebff'
-    while (PLAYERS[0].playerNum != playerNum) {
+    while (PLAYERS[0]?.playerNum != playerNum) {
       PLAYERS.push(PLAYERS.shift())
     }
   }
