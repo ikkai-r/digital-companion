@@ -11,7 +11,7 @@
         "src": "/(.*)",
         "dest": "server.js",
         "headers": {
-            "Access-Control-Allow-Origin": "https://digital-companion-as4hrsmct-ikkairs-projects.vercel.app"
+            "Access-Control-Allow-Origin": "https://digital-companion.vercel.app"
           }
         
       }
