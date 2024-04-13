@@ -188,7 +188,7 @@ export default function combat() {
     return (
       <section id="CombatPage" className='bg-background w-full min-h-screen text-text primary-text flex flex-col'>
         <div className='w-full flex flex-col min-h-screen text-3xl accent-text justify-center'>
-          <div className='w-full bg-accent3 p-10 flex flex-col justify-center items-center' style={{ flex: '1' }}>
+          <div className='w-full bg-accent3 px-5 py-5  flex flex-col justify-center items-center' style={{ flex: '1' }}>
             <Button className='w-28 mb-10 rotate-180' style={{ backgroundColor: '#4056a1' }} onClick={handleRollPrey}>
               <p className=' text-2xl'>{"Roll!"}</p>
             </Button>
@@ -196,19 +196,38 @@ export default function combat() {
               number={rollNumPrey}
               prey={1}
             />
-            <p className='rotate-180 text-2xl pb-12'>P{prey}{preyStat === null ? '': (': ' + capitalizeFirstLetter(stat) + ' of ' + ((preyStat < 0) ? preyStat : '+' + preyStat))}</p>
+            <p className='rotate-180 text-2xl pb-12'>P{prey}</p>
+            <div className='w-full flex pt-3 rotate-180'>
+            <div className='bg-accent px-3 py-1 rounded-md text-secondary text-lg'>
+            {preyStat === null ? '' : (
+                  <div className='items-center flex justify-center gap-2'>
+                      <img src={`/assets/${stat}.png`} className='w-8 h-8' />
+                      {((preyStat < 0) ? preyStat : '+' + preyStat)}
+                  </div>
+              )}            
+            </div>
+          </div>
           </div>
   
-          <div className="bg-black text-center w-full py-1" >
+          <div className="bg-background text-center w-full py-1" >
             <div className='w-full text-center flex gap-5 items-center justify-center'>
               <p className='text-lg'>P{predator}</p>
               <p className='text-lg'>P{prey}</p>
             </div>
             <p className='text-4xl'>{predatorScore} : {preyScore}</p>
           </div>
-  
-          <div className='w-full bg-secondary p-10 flex flex-col justify-center items-center' style={{ flex: '1' }}>
-          <p className='text-2xl pb-5'>P{predator}{predatorStat === null ? '': (': ' + capitalizeFirstLetter(stat) + ' of ' + ((predatorStat < 0) ? predatorStat : '+' + predatorStat))}</p>
+          <div className='w-full bg-secondary px-5 py-5 flex flex-col justify-center items-center' style={{ flex: '1' }}>
+          <div className='w-full flex pt-3'>
+            <div className='bg-accent px-3 py-1 rounded-md text-secondary text-lg'>
+            {predatorStat === null ? '' : (
+                  <div className='items-center flex justify-center gap-2'>
+                      <img src={`/assets/${stat}.png`} className='w-8 h-8' />
+                      {((predatorStat < 0) ? predatorStat : '+' + predatorStat)}
+                  </div>
+              )}            
+            </div>
+          </div>
+          <p className='text-2xl pb-5'>P{predator}</p>
             <D20
               number={rollNumPredator}
               prey={0}

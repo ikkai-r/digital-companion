@@ -5,6 +5,8 @@ import { Button, Modal } from 'flowbite-react';
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { useSearchParams } from 'next/navigation'
 import type { CustomFlowbiteTheme } from "flowbite-react";
+import { SlArrowDown } from "react-icons/sl";
+
 
 export default function LimbContainer({ limb, playerNow }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -80,7 +82,7 @@ export default function LimbContainer({ limb, playerNow }) {
 
   return (
     <div className='w-full flex items-center justify-center'>
-      <div className={` w-full ${limb.color} rounded-md p-3 mt-4 ${isDropdownOpen ? 'h-0 overflow-hidden hidden' : 'h-auto'}`} onClick={toggleDropdown}>
+      <div className={` w-full ${limb.color} flex justify-center flex-col  items-center rounded-md p-3 mt-4 ${isDropdownOpen ? 'h-0 overflow-hidden hidden' : 'h-auto'}`} onClick={toggleDropdown}>
         <div className='w-full text-center flex items-center'>
           <span
             style={{
@@ -117,6 +119,7 @@ export default function LimbContainer({ limb, playerNow }) {
           }
 
         </div>
+        <SlArrowDown className='text-xl' />
       </div>
 
       {isDropdownOpen && (
