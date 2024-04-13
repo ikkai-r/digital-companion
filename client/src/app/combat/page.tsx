@@ -188,7 +188,6 @@ export default function CombatPage() {
 
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
     <section id="CombatPage" className='bg-background w-full min-h-screen text-text primary-text flex flex-col'>
       <div className='w-full flex flex-col min-h-screen text-3xl accent-text justify-center'>
         <div className='w-full bg-accent3 p-10 flex flex-col justify-center items-center' style={{ flex: '1' }}>
@@ -330,6 +329,5 @@ export default function CombatPage() {
         </Modal.Body>
       </Modal>
     </section>
-    </Suspense>
   )
 }
