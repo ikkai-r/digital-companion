@@ -35,7 +35,7 @@ export default function Homepage() {
                     Choose a player number
                 </p>
                 <p className='text-gray-300 primary-text text-sm'>
-                    Proceed with the game by <br/> choosing a number of your choice. 
+                    Proceed with the game by <br/> selecting the number equal to your position in turn order. 
                 </p>
             </div>
 

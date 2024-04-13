@@ -95,7 +95,7 @@ export default function Buttons({ playerView }) {
 
     const API_URL = process.env.NEXT_PUBLIC_BACKEND
 
-    fetch(`${API_URL}/move/${playerNum}`)
+    fetch(`${API_URL}/api/move/${playerNum}`)
       .then(response => response.json())
       .then(data => {
         let move = data.number
@@ -274,7 +274,7 @@ export default function Buttons({ playerView }) {
                     <Button className={`w-36 text-3xl accent-text mt-5`} size="4xl" style={{ backgroundColor: '#FB5A48' }} onClick={() => {
                       const API_URL = process.env.NEXT_PUBLIC_BACKEND
                       const eventType = (document.getElementById('eventType') as HTMLInputElement).value
-                      fetch(`${API_URL}/event/${playerNum}/${eventType}`)
+                      fetch(`${API_URL}/api/event/${playerNum}/${eventType}`)
                         .then(response => response.json())
                         .then(data => {
                           setResults(data.roll)
