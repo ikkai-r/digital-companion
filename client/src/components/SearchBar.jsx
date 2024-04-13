@@ -19,7 +19,7 @@ export default function SearchBar() {
     // Check if input value is not empty to show the div
     if (e.target.value.trim() !== '') {
       const API_URL = process.env.NEXT_PUBLIC_BACKEND
-      fetch(`${API_URL}/search_part/${e.target.value.trim()}`)
+      fetch(`${API_URL}/api/search_part/${e.target.value.trim()}`)
         .then(response => response.json())
         .then(data => {
           setLimbs(data)
@@ -35,7 +35,7 @@ export default function SearchBar() {
 
   const handleClick = (code) => {
     const API_URL = process.env.NEXT_PUBLIC_BACKEND
-    fetch(`${API_URL}/add/${playerNum}/${code}`, {
+    fetch(`${API_URL}/api/add/${playerNum}/${code}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

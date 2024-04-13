@@ -169,7 +169,7 @@ export default function LimbContainer({ limb, playerNow }) {
               <Button color="failure" onClick={() => {
                 const API_URL = process.env.NEXT_PUBLIC_BACKEND
 
-                fetch(`${API_URL}/remove/${playerNum}/${limb.code}`, { method: 'DELETE' })
+                fetch(`${API_URL}/api/remove/${playerNum}/${limb.code}`, { method: 'DELETE' })
                   .then(response => {
                     if (response.status === 200) {
                       window.location.reload()

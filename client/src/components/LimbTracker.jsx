@@ -26,7 +26,7 @@ export default function LimbTracker({playerView}) {
 
   useEffect(() => {
     const API_URL = process.env.NEXT_PUBLIC_BACKEND
-    fetch(`${API_URL}/view_parts/${playerView}`)
+    fetch(`${API_URL}/api/view_parts/${playerView}`)
       .then(response => response.json())
       .then(data => {
         setData(data)

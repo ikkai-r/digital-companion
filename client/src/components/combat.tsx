@@ -92,7 +92,7 @@ export default function combat() {
     useEffect(() => {
       const API_URL = process.env.NEXT_PUBLIC_BACKEND
       if (predatorPartsNum === null) {
-        fetch(`${API_URL}/view_parts/${predator}`)
+        fetch(`${API_URL}/api/view_parts/${predator}`)
           .then(response => response.json())
           .then(data => {
             setPredatorPartsNum(data.length)
@@ -102,7 +102,7 @@ export default function combat() {
           })
       }
       if (preyPartsNum === null) {
-        fetch(`${API_URL}/view_parts/${prey}`)
+        fetch(`${API_URL}/api/view_parts/${prey}`)
           .then(response => response.json())
           .then(data => {
             setPreyPartsNum(data.length)
@@ -112,7 +112,7 @@ export default function combat() {
           })
       }
       if (predatorStat === null || preyStat === null) {
-        fetch(`${API_URL}/battle/${predator}/${prey}`, {
+        fetch(`${API_URL}/api/battle/${predator}/${prey}`, {
           method: 'POST'
         })
           .then(response => response.json())

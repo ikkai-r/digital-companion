@@ -15,7 +15,7 @@ export default function StatsTracker({currentPlayer, setCurrentPlayer}) {
   useEffect(() => {
     console.log("==== useApi ====");
     const API_URL = process.env.NEXT_PUBLIC_BACKEND
-    fetch(`${API_URL}/view_all_stats`)
+    fetch(`${API_URL}/api/view_all_stats`)
       .then(response => response.json())
       .then((data) => {
         setData(data);
