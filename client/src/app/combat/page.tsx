@@ -136,9 +136,9 @@ export default function CombatPage() {
       setShowTextButton("Let's see!");
     } else {
       let result
-      if (rollNumPredator > rollNumPrey) {
+      if (parseInt(rollNumPredator) > parseInt(rollNumPrey)) {
         result = 'predator';
-      } else if (rollNumPredator < rollNumPrey) {
+      } else if (parseInt(rollNumPredator) < parseInt(rollNumPrey)) {
         result = 'prey';
       } else {
         result = 'draw';
@@ -154,9 +154,9 @@ export default function CombatPage() {
     }
 
     if (rollPrey && rollPredator && !showResult && !showSteal) {
-      if (rollNumPredator > rollNumPrey) {
+      if (parseInt(rollNumPredator) > parseInt(rollNumPrey)) {
         setPredatorScore(predatorScore + 1);
-      } else if (rollNumPredator < rollNumPrey) {
+      } else if (parseInt(rollNumPredator) < parseInt(rollNumPrey)) {
         setPreyScore(preyScore + 1);
       }
       setShowResult(true);
