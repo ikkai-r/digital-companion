@@ -1,6 +1,6 @@
 "use client"
 
-import React, {useState} from 'react'
+import React, {useState, Suspense} from 'react'
 import SearchBar from '@/components/SearchBar'
 import StatsTracker from '@/components/StatsTracker'
 import Buttons from '@/sections/view/Buttons'
@@ -13,6 +13,7 @@ export default function ViewCharacterPage() {
   const searchParams = useSearchParams()
   const [currentPlayer, setCurrentPlayer] = useState(searchParams.get('player'))
   return (
+    <Suspense fallback={<div>Loading...</div>}>
     <section id='ViewCharacterPage' className='bg-background w-full min-h-screen text-text primary-text flex flex-col'>
       <div className='p-6 flex flex-col'>
         <SearchBar/>
@@ -25,5 +26,6 @@ export default function ViewCharacterPage() {
         playerView={currentPlayer}/>
       </div>
     </section>
+    </Suspense>
   )
 }
