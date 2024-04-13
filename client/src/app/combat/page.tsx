@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react'
+import React, { useState, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { Modal, Button } from 'flowbite-react'
 import D20 from '@/components/D20'

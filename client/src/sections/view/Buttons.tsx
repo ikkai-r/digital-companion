@@ -21,7 +21,7 @@ export default function Buttons({ playerView }) {
   const [secondText, setSecondText] = useState('tiles!');
   const [prey, setPrey] = useState(null);
   const searchParams = useSearchParams()
-  const playerNum = searchParams.get('player')
+  const playerNum = searchParams?.get('player') ?? '';
   let otherPlayerNumbers = [1, 2, 3, 4];
   otherPlayerNumbers = otherPlayerNumbers.filter(num => num !== parseInt(playerNum, 10));
 
