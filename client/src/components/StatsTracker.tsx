@@ -13,11 +13,11 @@ export default function StatsTracker({currentPlayer, setCurrentPlayer}) {
   const playerNum = searchParams?.get('player') ?? '';
 
   useEffect(() => {
-
+    console.log("==== useApi ====");
     const API_URL = process.env.NEXT_PUBLIC_BACKEND
     fetch(`${API_URL}/view_all_stats`)
       .then(response => response.json())
-      .then((data) => { // Specify the type of data as Player[]
+      .then((data) => {
         setData(data);
       })
       .catch(error => {
@@ -25,73 +25,61 @@ export default function StatsTracker({currentPlayer, setCurrentPlayer}) {
       })
   }, [])
 
-  let PLAYERS: any[] = [];
-  if (!data) {
-    PLAYERS = [
-      {
-        color: '#ff844f',
-        playerNum: '1',
-        stats: {
-          str: '0',
-          def: '0',
-          spd: '0',
-          cha: '0'
-        }
-      },
-      {
-        color: '#CD3AFF',
-        playerNum: '2',
-        stats: {
-          str: '0',
-          def: '0',
-          spd: '0',
-          cha: '0'
-        }
-      },
-      {
-        color: '#E4273B',
-        playerNum: '3',
-        stats: {
-          str: '0',
-          def: '0',
-          spd: '0',
-          cha: '0'
-        }
-      },
-      {
-        color: '#61ebff',
-        playerNum: '4',
-        stats: {
-          str: '0',
-          def: '0',
-          spd: '0',
-          cha: '0'
-        }
-      },
-    ]
-  } else {
-    // TODO: cannot set properties of undefined (setting 'color');
+  let PLAYERS :any[] = []; 
 
-    PLAYERS = data.map((player) => {
-      return {
-        color: player.color,
-        playerNum: player.playerNum,
-        stats: {
-          str: player.stats.str,
-          def: player.stats.def,
-          spd: player.stats.spd,
-          cha: player.stats.cha
-        }
-      }
-    })
-    PLAYERS[0].color = '#ff844f'
-    PLAYERS[1].color = '#CD3AFF'
-    PLAYERS[2].color = '#E4273B'
-    PLAYERS[3].color = '#61ebff'
-    while (PLAYERS[0]?.playerNum != playerNum) {
-      PLAYERS.push(PLAYERS.shift())
+if (!data) {
+  PLAYERS = [
+    {
+      color: '#ff844f',
+      playerNum: '1',
+      stats: { str: '0', def: '0', spd: '0', cha: '0' }
+    },
+    {
+      color: '#CD3AFF',
+      playerNum: '2',
+      stats: { str: '0', def: '0', spd: '0', cha: '0' }
+    },
+    {
+      color: '#E4273B',
+      playerNum: '3',
+      stats: { str: '1', def: '0', spd: '0', cha: '0' }
+    },
+    {
+      color: '#61ebff',
+      playerNum: '4',
+      stats: { str: '0', def: '0', spd: '0', cha: '0' }
     }
+  ];
+} else {
+  // If data exists and is not empty, map it to PLAYERS
+  PLAYERS = data.map((player) => {
+    return {
+      color: player.color,
+      playerNum: player.playerNum,
+      stats: {
+        str: player.stats.str,
+        def: player.stats.def,
+        spd: player.stats.spd,
+        cha: player.stats.cha
+      }
+    };
+  });
+
+  if (PLAYERS[0]) PLAYERS[0].color = '#ff844f';
+  if (PLAYERS[1]) PLAYERS[1].color = '#CD3AFF';
+  if (PLAYERS[2]) PLAYERS[2].color = '#E4273B';
+  if (PLAYERS[3]) PLAYERS[3].color = '#61ebff';
+
+  let iterations = 0;
+
+  // Rotate PLAYERS array so that the first player matches the specified playerNum
+  while (PLAYERS[0]?.playerNum != playerNum && iterations < PLAYERS.length) {
+    PLAYERS.push(PLAYERS.shift());
+    iterations++;
   }
+}
+
+
 
   const carouselTheme: CustomFlowbiteTheme['carousel'] = {
       "root": {
@@ -113,6 +101,7 @@ export default function StatsTracker({currentPlayer, setCurrentPlayer}) {
       },
     }
 
+    console.log('PLAYERS: ', PLAYERS);
 
   return (
 
