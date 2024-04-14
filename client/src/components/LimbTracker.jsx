@@ -34,7 +34,7 @@ export default function LimbTracker({playerView, fetchData, data, isLoading}) {
 
   useEffect(() => {
     let LIMBS
-    if (data) {
+    if (isLoading === false) {
       LIMBS = data.map(limb => {
         return {
           code: limb.id,
@@ -46,6 +46,7 @@ export default function LimbTracker({playerView, fetchData, data, isLoading}) {
           race: limb.fac
         }
       })
+      console.log(LIMBS)
       LIMBS.forEach(limb => {
         const raceColors = COLORS.find(color => color[limb.race.toLowerCase()]);
         if (raceColors) {
@@ -56,7 +57,7 @@ export default function LimbTracker({playerView, fetchData, data, isLoading}) {
       setLimbs(LIMBS);
       setNumLimb(LIMBS.length);
     }
-  }, [data])
+  }, [data, isLoading])
 
 
   return (
