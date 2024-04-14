@@ -14,7 +14,7 @@ export default function Homepage() {
     const reset = () => {
         const API_URL = process.env.NEXT_PUBLIC_BACKEND
         console.log('reset called');
-        fetch(`${API_URL}/api/reset`)
+        fetch(`${API_URL}/api/reset`, {cache: 'no-store'})
           .then(response => {
             if (response.ok) { 
                 window.location.reload();

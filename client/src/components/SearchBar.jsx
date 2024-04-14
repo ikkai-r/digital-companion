@@ -24,7 +24,7 @@ export default function SearchBar({fetchLimbData, fetchStatsData}) {
     try {
       if (e.target.value.trim() !== '') {
         const API_URL = process.env.NEXT_PUBLIC_BACKEND;
-        const response = await fetch(`${API_URL}/api/search_part/${e.target.value.trim()}`);
+        const response = await fetch(`${API_URL}/api/search_part/${e.target.value.trim()}`, {cache: 'no-store'});
         const data = await response.json();
         setLimbs(data);
         setShowDiv(true);
@@ -44,6 +44,7 @@ export default function SearchBar({fetchLimbData, fetchStatsData}) {
         headers: {
           'Content-Type': 'application/json'
         },
+        cache: 'no-store'
       });
   
       if (response.status === 200) {

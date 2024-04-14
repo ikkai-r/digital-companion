@@ -27,7 +27,7 @@ export default function LimbContainer({ limb, playerNow, fetchData }) {
   async function removeLimb() {
     try {
       const API_URL = process.env.NEXT_PUBLIC_BACKEND;
-      const response = await fetch(`${API_URL}/api/remove/${playerNum}/${limb.code}`, { method: 'DELETE' });
+      const response = await fetch(`${API_URL}/api/remove/${playerNum}/${limb.code}`, { method: 'DELETE', cache: 'no-store' });
   
       if (response.status === 200) {
         fetchData();

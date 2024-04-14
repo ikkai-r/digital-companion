@@ -14,7 +14,7 @@ export default function View() {
     const fetchDataStats = async () => {
       try {
         const API_URL = process.env.NEXT_PUBLIC_BACKEND;
-        const response = await fetch(`${API_URL}/api/view_all_stats`);
+        const response = await fetch(`${API_URL}/api/view_all_stats`, {cache: 'no-store'});
         const dataStats = await response.json();
         console.log('dataStats here in view', dataStats);
         setDataStats(dataStats);
@@ -26,7 +26,7 @@ export default function View() {
     const fetchDataLimbs = async () => {
       try {
           const API_URL = process.env.NEXT_PUBLIC_BACKEND;
-          const response = await fetch(`${API_URL}/api/view_parts/${currentPlayer}`);
+          const response = await fetch(`${API_URL}/api/view_parts/${currentPlayer}`, {cache: 'no-store'});
           const dataLimbs = await response.json();
           console.log('datalimbs here in view', dataLimbs);
           setDataLimbs(dataLimbs);

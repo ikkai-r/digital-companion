@@ -155,20 +155,20 @@ export default function combat() {
     const API_URL = process.env.NEXT_PUBLIC_BACKEND
     try {
       if (predatorPartsNum === null) {
-        const response = await fetch(`${API_URL}/api/view_parts/${predator}`);
+        const response = await fetch(`${API_URL}/api/view_parts/${predator}`, { cache: 'no-store' });
         const data = await response.json();
         setPredatorPartsNum(data.length);
       }
   
       if (preyPartsNum === null) {
-        const response = await fetch(`${API_URL}/api/view_parts/${prey}`);
+        const response = await fetch(`${API_URL}/api/view_parts/${prey}`, { cache: 'no-store' });
         const data = await response.json();
         setPreyPartsNum(data.length);
       }
   
       if (predatorStat === null || preyStat === null) {
         const response = await fetch(`${API_URL}/api/battle/${predator}/${prey}`, {
-          method: 'POST'
+          method: 'POST', cache: 'no-store'
         });
         const data = await response.json();
         setPredatorStat(data.predator[stat]);

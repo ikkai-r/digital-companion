@@ -177,7 +177,7 @@ export default function StatsContainer({ color, playernum, str, def, spe, cha, f
 
                       try {
                         const API_URL = process.env.NEXT_PUBLIC_BACKEND;
-                        const response = await fetch(`${API_URL}/api/buff/${playerNum}/${stat}/${modifier}/${duration}`, { method: 'POST' });
+                        const response = await fetch(`${API_URL}/api/buff/${playerNum}/${stat}/${modifier}/${duration}`, { method: 'POST', cache: 'no-store' });
 
                         if (response.status === 200) {
                           setOpenModal(false);
