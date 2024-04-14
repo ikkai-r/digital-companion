@@ -48,6 +48,8 @@ export default function LimbTracker({ playerView, fetchData, data }) {
               race: limb.fac
             }
           })
+          console.log(`${API_URL}/api/view_parts/${playerView}`)
+          console.log(playerView)
           console.log(data)
           console.log(LIMBS)
           LIMBS.forEach(limb => {
