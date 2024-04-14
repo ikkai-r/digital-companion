@@ -21,7 +21,7 @@ export default function View() {
           throw new Error('Network response was not ok');
         }
         const data = await response.json();
-        setDataStats(data);
+        setDataStats([...data]);
         setIsLoadingStats(false);
       } catch (error) {
         console.error('Error:', error);
