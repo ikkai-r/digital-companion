@@ -8,6 +8,9 @@ import { Spinner } from 'flowbite-react'
 
 export default function LimbTracker({playerView, fetchData, data, isLoading}) {
 
+  const [limbs, setLimbs] = useState([]);
+  const [numLimb, setNumLimb] = useState(0);
+
   const COLORS = [
     {
       'fantastical': 'bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600',
@@ -29,10 +32,8 @@ export default function LimbTracker({playerView, fetchData, data, isLoading}) {
     fetchData();
 }, [playerView]);
 
-  let LIMBS = [];
-  let numLimb = LIMBS.length
-
   useEffect(() => {
+    let LIMBS
     if (data) {
       LIMBS = data.map(limb => {
         return {
@@ -42,6 +43,7 @@ export default function LimbTracker({playerView, fetchData, data, isLoading}) {
           def: limb.def,
           spe: limb.spd,
           cha: limb.cha,
+          race: limb.fac
         }
       })
       LIMBS.forEach(limb => {
@@ -51,7 +53,8 @@ export default function LimbTracker({playerView, fetchData, data, isLoading}) {
           limb.colorbg = raceColors[`${limb.race.toLowerCase()}-bg`];
         }
       })
-      numLimb = LIMBS.length
+      setLimbs(LIMBS);
+      setNumLimb(LIMBS.length);
     }
   }, [data])
 
@@ -78,7 +81,7 @@ export default function LimbTracker({playerView, fetchData, data, isLoading}) {
                     </div> : ''
     }
 
-        {LIMBS.map(limb => (
+        {limbs.map(limb => (
           <LimbContainer
             limb={limb}
             playerNow={playerView}
