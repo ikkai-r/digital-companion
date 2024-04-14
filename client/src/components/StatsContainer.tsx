@@ -90,16 +90,14 @@ export default function StatsContainer({ color, playernum, str, def, spe, cha })
               <p>{str ? str : '0'}</p>
             </div>
 
+            <div className='w-full flex justify-between bg-secondary p-2 rounded-md px-4 mt-2'>
+              <p>Speed</p>
+              <p>{spe ? spe : '0'}</p>
+            </div>
 
             <div className='w-full flex justify-between bg-secondary p-2 rounded-md px-4 mt-2'>
               <p>Defense</p>
               <p>{def ? def : '0'}</p>
-            </div>
-
-
-            <div className='w-full flex justify-between bg-secondary p-2 rounded-md px-4 mt-2'>
-              <p>Speed</p>
-              <p>{spe ? spe : '0'}</p>
             </div>
 
 
