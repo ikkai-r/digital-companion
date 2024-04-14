@@ -6,35 +6,19 @@ import StatsContainer from './StatsContainer';
 import { useState, useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
 
-export default function StatsTracker({currentPlayer, setCurrentPlayer}) {
+export default function StatsTracker({currentPlayer, setCurrentPlayer, fetchData, dataStats, isLoadingStats}) {
 
-  const [data, setData] = useState<any[]>([])
   const searchParams = useSearchParams()
   const playerNum = searchParams?.get('player') ?? '';
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(()  => {
-    const fetchData = async () => {
-      try {
-        const API_URL = process.env.NEXT_PUBLIC_BACKEND;
-        const response = await fetch(`${API_URL}/api/view_all_stats`);
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
-        setData(data);
-        setIsLoading(false);
-      } catch (error) {
-        console.error('Error:', error);
-      }
-    };
-  
     fetchData();
   }, [])
 
   let PLAYERS :any[] = []; 
 
-if (!data) {
+if (!dataStats) {
   PLAYERS = [
     {
       color: '#ff844f',
@@ -58,8 +42,8 @@ if (!data) {
     }
   ];
 } else {
-  // If data exists and is not empty, map it to PLAYERS
-  PLAYERS = data.map((player) => {
+  // If dataStats exists and is not empty, map it to PLAYERS
+  PLAYERS = dataStats.map((player) => {
     return {
       color: player.color,
       playerNum: player.playerNum,
@@ -91,8 +75,8 @@ if (!data) {
   const carouselTheme: CustomFlowbiteTheme['carousel'] = {
       "root": {
         "base": "relative h-full w-full",
-        "leftControl": `absolute top-0 mt-16 pt-4 flex h-full items-center justify-center px-4 focus:outline-none ${isLoading ? 'hidden' : ''}`,
-        "rightControl": `absolute ml-14 top-0 mt-16 pt-4 flex h-full items-center justify-center px-4 focus:outline-none ${isLoading ? 'hidden' : ''}`
+        "leftControl": `absolute top-0 mt-16 pt-4 flex h-full items-center justify-center px-4 focus:outline-none ${isLoadingStats ? 'hidden' : ''}`,
+        "rightControl": `absolute ml-14 top-0 mt-16 pt-4 flex h-full items-center justify-center px-4 focus:outline-none ${isLoadingStats ? 'hidden' : ''}`
     },
       "indicators": {
         "active": {
@@ -114,7 +98,7 @@ if (!data) {
     <>
 
     {
-      isLoading ?  <div className='h-70 sm:h-70 xl:h-80 2xl:h-96 mt-4 p-10 bg-accent accent-text uppercase text-center gap-3 justify-center text-background text-4xl w-full flex flex-col rounded-md'>
+      isLoadingStats ?  <div className='h-70 sm:h-70 xl:h-80 2xl:h-96 mt-4 p-10 bg-accent accent-text uppercase text-center gap-3 justify-center text-background text-4xl w-full flex flex-col rounded-md'>
                         <Spinner size="lg" color="pink" aria-label="Pink spinner example" />
                      <div className='mt-1'>
                       Loading
@@ -138,6 +122,7 @@ if (!data) {
               def={player.stats.def}
               spe={player.stats.spd}
               cha={player.stats.cha}
+              fetchData={fetchData}
             />
           ))}
         </Carousel>
