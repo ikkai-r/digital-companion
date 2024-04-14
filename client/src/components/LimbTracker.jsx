@@ -29,36 +29,32 @@ export default function LimbTracker({playerView, fetchData, data, isLoading}) {
     fetchData();
 }, [playerView]);
 
-  let LIMBS;
+  let LIMBS = [];
+  let numLimb = LIMBS.length
 
-  if (!data) {
-    LIMBS = [
-    
-    ]
-
-  } else {
-    LIMBS = data.map(limb => {
-      return {
-        code: limb.id,
-        name: limb.name,
-        str: limb.str,
-        def: limb.def,
-        spe: limb.spd,
-        cha: limb.cha,
-        race: limb.fac
-      }
+  useEffect(() => {
+    if (data) {
+      LIMBS = data.map(limb => {
+        return {
+          code: limb.id,
+          name: limb.name,
+          str: limb.str,
+          def: limb.def,
+          spe: limb.spd,
+          cha: limb.cha,
+        }
+      })
+      LIMBS.forEach(limb => {
+        const raceColors = COLORS.find(color => color[limb.race.toLowerCase()]);
+        if (raceColors) {
+          limb.color = raceColors[limb.race.toLowerCase()];
+          limb.colorbg = raceColors[`${limb.race.toLowerCase()}-bg`];
+        }
+      })
+      numLimb = LIMBS.length
     }
-    )
-  }
-  LIMBS.forEach(limb => {
-    const raceColors = COLORS.find(color => color[limb.race.toLowerCase()]);
-    if (raceColors) {
-      limb.color = raceColors[limb.race.toLowerCase()];
-      limb.colorbg = raceColors[`${limb.race.toLowerCase()}-bg`];
-    }
-  });
+  }, [data])
 
-  const numLimb = LIMBS.length
 
   return (
     <div className='w-full bg-zinc-300 rounded-md mt-4 p-4'>
