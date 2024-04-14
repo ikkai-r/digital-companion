@@ -11,15 +11,21 @@ export default function Homepage() {
     const [clicked, setClicked] = useState(false);
     const [choose, setChoose] = useState(false);
 
-    useEffect(() => {
-    const API_URL = process.env.NEXT_PUBLIC_BACKEND
+    const reset = () => {
+        const API_URL = process.env.NEXT_PUBLIC_BACKEND
+        console.log('reset called');
         fetch(`${API_URL}/api/reset`)
-          .then(response => response.json())
+          .then(response => {
+            if (response.ok) { 
+                window.location.reload();
+            } else {
+                console.error('Error:', response.status);
+            }
+          })
           .catch(error => {
             console.error('Error:', error)
           }) 
-          
-    }, []); 
+    }
 
   return (
     <section className='bg-background flex min-h-screen w-full justify-center items-center'>
@@ -73,7 +79,6 @@ export default function Homepage() {
                     
 
             }
-
             
 
         </div>
@@ -121,6 +126,11 @@ export default function Homepage() {
                                 </p>
                             </div>
                         </Link>
+
+                        <Button className={`w-36 text-2xl accent-text mt-16 p-2`} size="4xl" style={{ backgroundColor: '#4056a1' }} onClick={() => reset()}>
+                        {"RESET GAME"}
+                    </Button>
+
 
                     </div>
 

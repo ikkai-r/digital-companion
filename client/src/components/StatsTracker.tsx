@@ -13,7 +13,6 @@ export default function StatsTracker({currentPlayer, setCurrentPlayer}) {
   const playerNum = searchParams?.get('player') ?? '';
 
   useEffect(() => {
-    console.log("==== useApi ====");
     const API_URL = process.env.NEXT_PUBLIC_BACKEND
     fetch(`${API_URL}/api/view_all_stats`)
       .then(response => response.json())
@@ -68,7 +67,7 @@ if (!data) {
   if (PLAYERS[0]) PLAYERS[0].color = '#ff844f';
   if (PLAYERS[1]) PLAYERS[1].color = '#CD3AFF';
   if (PLAYERS[2]) PLAYERS[2].color = '#E4273B';
-  if (PLAYERS[3]) PLAYERS[3].color = '#61ebff';
+  if (PLAYERS[3]) PLAYERS[3].color = '#008396';
 
   let iterations = 0;
 
@@ -101,7 +100,6 @@ if (!data) {
       },
     }
 
-    console.log('PLAYERS: ', PLAYERS);
 
   return (
 

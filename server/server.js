@@ -112,7 +112,7 @@ function useBuff(player) {
     buffs[player - 1] = buffs[player - 1].filter(buff => buff.duration > 0)
 }
 
-app.post("/api/reset", (req, res) => {
+app.get("/api/reset", (req, res) => {
     players = [[], [], [], []]
     buffs = [[], [], [], []]
     res.status(200).setHeader('Access-Control-Allow-Origin', 'https://digital-companion.vercel.app').send("Reset successful!")
