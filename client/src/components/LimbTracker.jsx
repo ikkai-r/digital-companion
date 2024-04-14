@@ -8,8 +8,8 @@ import { Spinner } from 'flowbite-react'
 
 export default function LimbTracker({playerView, fetchData, data, isLoading}) {
 
-  const [limbs, setLimbs] = useState([]);
-  const [numLimb, setNumLimb] = useState(0);
+  //const [limbs, setLimbs] = useState([]);
+  //const [numLimb, setNumLimb] = useState(0);
 
   const COLORS = [
     {
@@ -32,6 +32,7 @@ export default function LimbTracker({playerView, fetchData, data, isLoading}) {
     fetchData();
 }, [playerView]);
 
+/*
   useEffect(() => {
     let LIMBS
     if (data) {
@@ -57,8 +58,37 @@ export default function LimbTracker({playerView, fetchData, data, isLoading}) {
       setNumLimb(LIMBS.length);
     }
   }, [data])
+*/
 
+let LIMBS;
+let numLimb = 0;
+  if (!data) {
+    LIMBS = [
 
+    ]
+
+  } else {
+    LIMBS = data.map(limb => {
+      return {
+        code: limb.id,
+        name: limb.name,
+        str: limb.str,
+        def: limb.def,
+        spe: limb.spd,
+        cha: limb.cha,
+        race: limb.fac
+      }
+    }
+    )
+  }
+  LIMBS.forEach(limb => {
+    const raceColors = COLORS.find(color => color[limb.race.toLowerCase()]);
+    if (raceColors) {
+      limb.color = raceColors[limb.race.toLowerCase()];
+      limb.colorbg = raceColors[`${limb.race.toLowerCase()}-bg`];
+    }
+  });
+  
   return (
     <div className='w-full bg-zinc-300 rounded-md mt-4 p-4'>
       <div className='w-full flex justify-between'>
@@ -81,7 +111,7 @@ export default function LimbTracker({playerView, fetchData, data, isLoading}) {
                     </div> : ''
     }
 
-        {limbs.map(limb => (
+        {LIMBS.map(limb => (
           <LimbContainer
             limb={limb}
             playerNow={playerView}
