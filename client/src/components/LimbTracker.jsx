@@ -12,6 +12,9 @@ export default function LimbTracker({ playerView, fetchData, data }) {
   const [numLimb, setNumLimb] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
+  const [dataLimbs, setDataLimbs] = useState(data);
+
+
   const COLORS = [
     {
       'fantastical': 'bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600',
@@ -30,48 +33,44 @@ export default function LimbTracker({ playerView, fetchData, data }) {
   ]
 
   useEffect(() => {
+    fetchData();
+    setDataLimbs(data);
+    fetchLimbs();
+
+    //console.log('limb tracker', data);
+    //console.log('limb tracker datalimbs:', dataLimbs);
+  }, [data, playerView]);
+
+  function fetchLimbs() {
     try {
-      const API_URL = process.env.NEXT_PUBLIC_BACKEND;
-      fetch(`${API_URL}/api/view_parts/${playerView}`).then(
-        response => response.json()
-      ).then(
-        data => {
-          let LIMBS
-          LIMBS = data.map(limb => {
-            return {
-              code: limb.id,
-              name: limb.name,
-              str: limb.str,
-              def: limb.def,
-              spe: limb.spd,
-              cha: limb.cha,
-              race: limb.fac
-            }
-          })
-          console.log(`${API_URL}/api/view_parts/${playerView}`)
-          console.log(playerView)
-          console.log(data)
-          console.log(LIMBS)
-          LIMBS.forEach(limb => {
-            const raceColors = COLORS.find(color => color[limb.race.toLowerCase()]);
-            if (raceColors) {
-              limb.color = raceColors[limb.race.toLowerCase()];
-              limb.colorbg = raceColors[`${limb.race.toLowerCase()}-bg`];
-            }
-          })
-          setLimbs(LIMBS);
-          setNumLimb(LIMBS.length);
-          setIsLoading(false)
+  
+      let LIMBS = dataLimbs.map(limb => {
+        return {
+          code: limb.id,
+          name: limb.name,
+          str: limb.str,
+          def: limb.def,
+          spe: limb.spd,
+          cha: limb.cha,
+          race: limb.fac
         }
-      );
+      });
+  
+      LIMBS.forEach(limb => {
+        const raceColors = COLORS.find(color => color[limb.race.toLowerCase()]);
+        if (raceColors) {
+          limb.color = raceColors[limb.race.toLowerCase()];
+          limb.colorbg = raceColors[`${limb.race.toLowerCase()}-bg`];
+        }
+      });
+  
+      setLimbs(LIMBS);
+      setNumLimb(LIMBS.length);
+      setIsLoading(false);
     } catch (error) {
       console.error('Error:', error);
     }
-  }, [playerView]);
-
-  useEffect(() => {
-
-  }, [data, isLoading])
+  }  
 
 
   return (

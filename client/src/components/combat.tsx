@@ -90,40 +90,7 @@ export default function combat() {
   
   
     useEffect(() => {
-      const API_URL = process.env.NEXT_PUBLIC_BACKEND
-      if (predatorPartsNum === null) {
-        fetch(`${API_URL}/api/view_parts/${predator}`)
-          .then(response => response.json())
-          .then(data => {
-            setPredatorPartsNum(data.length)
-          })
-          .catch(error => {
-            console.error('Error:', error)
-          })
-      }
-      if (preyPartsNum === null) {
-        fetch(`${API_URL}/api/view_parts/${prey}`)
-          .then(response => response.json())
-          .then(data => {
-            setPreyPartsNum(data.length)
-          })
-          .catch(error => {
-            console.error('Error:', error)
-          })
-      }
-      if (predatorStat === null || preyStat === null) {
-        fetch(`${API_URL}/api/battle/${predator}/${prey}`, {
-          method: 'POST'
-        })
-          .then(response => response.json())
-          .then(data => {
-            setPredatorStat(data.predator[stat])
-            setPreyStat(data.prey[stat])
-          })
-          .catch(error => {
-            console.error('Error:', error)
-          })
-      }
+      fetchData();
   
       if (predatorScore === 3 || preyScore === 3) {
         if (predatorScore === 3) {
@@ -182,6 +149,34 @@ export default function combat() {
   
     const capitalizeFirstLetter = (string) => {
       return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  const fetchData = async () => {
+    const API_URL = process.env.NEXT_PUBLIC_BACKEND
+    try {
+      if (predatorPartsNum === null) {
+        const response = await fetch(`${API_URL}/api/view_parts/${predator}`);
+        const data = await response.json();
+        setPredatorPartsNum(data.length);
+      }
+  
+      if (preyPartsNum === null) {
+        const response = await fetch(`${API_URL}/api/view_parts/${prey}`);
+        const data = await response.json();
+        setPreyPartsNum(data.length);
+      }
+  
+      if (predatorStat === null || preyStat === null) {
+        const response = await fetch(`${API_URL}/api/battle/${predator}/${prey}`, {
+          method: 'POST'
+        });
+        const data = await response.json();
+        setPredatorStat(data.predator[stat]);
+        setPreyStat(data.prey[stat]);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
   }
   
   

@@ -9,20 +9,15 @@ export default function View() {
     const searchParams = useSearchParams()
     const [currentPlayer, setCurrentPlayer] = useState(searchParams?.get('player') ?? '')
     const [dataStats, setDataStats] = useState<any[]>([])
-    const [isLoadingStats, setIsLoadingStats] = useState(true);
     const [dataLimbs, setDataLimbs] = useState(null)
-    const [isLoadingLimbs, setIsLoadingLimbs] = useState(true);
 
     const fetchDataStats = async () => {
       try {
         const API_URL = process.env.NEXT_PUBLIC_BACKEND;
         const response = await fetch(`${API_URL}/api/view_all_stats`);
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
-        setDataStats(data);
-        setIsLoadingStats(false);
+        const dataStats = await response.json();
+        console.log('dataStats here in view', dataStats);
+        setDataStats(dataStats);
       } catch (error) {
         console.error('Error:', error);
       }
@@ -32,9 +27,9 @@ export default function View() {
       try {
           const API_URL = process.env.NEXT_PUBLIC_BACKEND;
           const response = await fetch(`${API_URL}/api/view_parts/${currentPlayer}`);
-          const data = await response.json();
-          setDataLimbs(data);
-          setIsLoadingLimbs(false)
+          const dataLimbs = await response.json();
+          console.log('datalimbs here in view', dataLimbs);
+          setDataLimbs(dataLimbs);
       } catch (error) {
           console.error('Error:', error);
       }
@@ -43,13 +38,15 @@ export default function View() {
     return (
     <div className='p-6 flex flex-col'>
       
-        <SearchBar/>
+        <SearchBar
+          fetchLimbData={fetchDataLimbs}
+          fetchStatsData={fetchDataStats}
+        />
         <StatsTracker
           currentPlayer={currentPlayer}
           setCurrentPlayer={setCurrentPlayer}
           fetchData={fetchDataStats}
-          dataStats={dataStats}
-          isLoadingStats={isLoadingStats}/>
+          data={dataStats}/>
         <LimbTracker
           playerView={currentPlayer}
           fetchData={fetchDataLimbs}

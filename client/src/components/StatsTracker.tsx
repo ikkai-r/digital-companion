@@ -6,77 +6,93 @@ import StatsContainer from './StatsContainer';
 import { useState, useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
 
-export default function StatsTracker({currentPlayer, setCurrentPlayer, fetchData, dataStats, isLoadingStats}) {
+export default function StatsTracker({currentPlayer, setCurrentPlayer, fetchData, data}) {
 
   const searchParams = useSearchParams()
   const playerNum = searchParams?.get('player') ?? '';
   const [isLoading, setIsLoading] = useState(true);
+  const [dataStats, setDataStats] = useState(data);
+  const [PLAYERS, setPLAYERS] = useState<any[]>([]);
 
-  useEffect(()  => {
+  useEffect(() => {
     fetchData();
-  }, [])
+    setDataStats(data);
+    mapPlayers();
+    setIsLoading(false);
 
-  let PLAYERS :any[] = []; 
+  }, [data, currentPlayer]);
 
-if (!dataStats) {
-  PLAYERS = [
-    {
-      color: '#ff844f',
-      playerNum: '1',
-      stats: { str: '0', def: '0', spd: '0', cha: '0' }
-    },
-    {
-      color: '#CD3AFF',
-      playerNum: '2',
-      stats: { str: '0', def: '0', spd: '0', cha: '0' }
-    },
-    {
-      color: '#E4273B',
-      playerNum: '3',
-      stats: { str: '0', def: '0', spd: '0', cha: '0' }
-    },
-    {
-      color: '#61ebff',
-      playerNum: '4',
-      stats: { str: '0', def: '0', spd: '0', cha: '0' }
-    }
-  ];
-} else {
-  // If dataStats exists and is not empty, map it to PLAYERS
-  PLAYERS = dataStats.map((player) => {
-    return {
-      color: player.color,
-      playerNum: player.playerNum,
-      stats: {
-        str: player.stats.str,
-        def: player.stats.def,
-        spd: player.stats.spd,
-        cha: player.stats.cha
+  function mapPlayers() {
+
+    if (!dataStats) {
+      console.log('no data')
+      const PLAYERS = [
+        {
+          color: '#ff844f',
+          playerNum: '1',
+          stats: { str: '0', def: '0', spd: '0', cha: '0' }
+        },
+        {
+          color: '#CD3AFF',
+          playerNum: '2',
+          stats: { str: '0', def: '0', spd: '0', cha: '0' }
+        },
+        {
+          color: '#E4273B',
+          playerNum: '3',
+          stats: { str: '0', def: '0', spd: '0', cha: '0' }
+        },
+        {
+          color: '#61ebff',
+          playerNum: '4',
+          stats: { str: '0', def: '0', spd: '0', cha: '0' }
+        }
+      ];
+
+      setPLAYERS(PLAYERS);
+    } else {
+      // If dataStats exists and is not empty, map it to PLAYERS
+      const PLAYERS = dataStats.map((player) => {
+        return {
+          color: player.color,
+          playerNum: player.playerNum,
+          stats: {
+            str: player.stats.str,
+            def: player.stats.def,
+            spd: player.stats.spd,
+            cha: player.stats.cha
+          }
+        };
+      });
+
+      if (PLAYERS[0]) PLAYERS[0].color = '#ff844f';
+      if (PLAYERS[1]) PLAYERS[1].color = '#CD3AFF';
+      if (PLAYERS[2]) PLAYERS[2].color = '#E4273B';
+      if (PLAYERS[3]) PLAYERS[3].color = '#008396';
+
+      let iterations = 0;
+
+      // Rotate PLAYERS array so that the first player matches the specified playerNum
+      while (PLAYERS[0]?.playerNum != playerNum && iterations < PLAYERS.length) {
+        PLAYERS.push(PLAYERS.shift());
+        iterations++;
       }
-    };
-  });
 
-  if (PLAYERS[0]) PLAYERS[0].color = '#ff844f';
-  if (PLAYERS[1]) PLAYERS[1].color = '#CD3AFF';
-  if (PLAYERS[2]) PLAYERS[2].color = '#E4273B';
-  if (PLAYERS[3]) PLAYERS[3].color = '#008396';
+      setPLAYERS(PLAYERS);
 
-  let iterations = 0;
+    }
 
-  // Rotate PLAYERS array so that the first player matches the specified playerNum
-  while (PLAYERS[0]?.playerNum != playerNum && iterations < PLAYERS.length) {
-    PLAYERS.push(PLAYERS.shift());
-    iterations++;
+    console.log('PLAYERS', PLAYERS);
   }
-}
+    
 
 
 
   const carouselTheme: CustomFlowbiteTheme['carousel'] = {
       "root": {
         "base": "relative h-full w-full",
-        "leftControl": `absolute top-0 mt-16 pt-4 flex h-full items-center justify-center px-4 focus:outline-none ${isLoadingStats ? 'hidden' : ''}`,
-        "rightControl": `absolute ml-14 top-0 mt-16 pt-4 flex h-full items-center justify-center px-4 focus:outline-none ${isLoadingStats ? 'hidden' : ''}`
+        "leftControl": `absolute top-0 mt-16 pt-4 flex h-full items-center justify-center px-4 focus:outline-none ${isLoading ? 'hidden' : ''}`,
+        "rightControl": `absolute ml-14 top-0 mt-16 pt-4 flex h-full items-center justify-center px-4 focus:outline-none ${isLoading ? 'hidden' : ''}`
     },
       "indicators": {
         "active": {
@@ -98,7 +114,7 @@ if (!dataStats) {
     <>
 
     {
-      isLoadingStats ?  <div className='h-70 sm:h-70 xl:h-80 2xl:h-96 mt-4 p-10 bg-accent accent-text uppercase text-center gap-3 justify-center text-background text-4xl w-full flex flex-col rounded-md'>
+      isLoading ?  <div className='h-70 sm:h-70 xl:h-80 2xl:h-96 mt-4 p-10 bg-accent accent-text uppercase text-center gap-3 justify-center text-background text-4xl w-full flex flex-col rounded-md'>
                         <Spinner size="lg" color="pink" aria-label="Pink spinner example" />
                      <div className='mt-1'>
                       Loading
@@ -124,7 +140,9 @@ if (!dataStats) {
               cha={player.stats.cha}
               fetchData={fetchData}
             />
-          ))}
+          ))
+          
+          }
         </Carousel>
     </div>
     

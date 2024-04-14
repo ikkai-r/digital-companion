@@ -24,6 +24,27 @@ export default function LimbContainer({ limb, playerNow, fetchData }) {
     setOpenModal(true);
   }
 
+  async function removeLimb() {
+    try {
+      const API_URL = process.env.NEXT_PUBLIC_BACKEND;
+      const response = await fetch(`${API_URL}/api/remove/${playerNum}/${limb.code}`, { method: 'DELETE' });
+  
+      if (response.status === 200) {
+        fetchData();
+        setOpenModal(false);
+      } else {
+        console.error('Error:', response);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+
+    setOpenModal(false);
+
+  }
+  
+  
+
 
   const modalTheme: CustomFlowbiteTheme['modal'] = {
 
@@ -169,23 +190,7 @@ export default function LimbContainer({ limb, playerNow, fetchData }) {
               Are you sure you want to delete the {limb.name}?
             </h3>
             <div className="flex justify-center gap-4">
-              <Button color="failure" onClick={() => {
-                const API_URL = process.env.NEXT_PUBLIC_BACKEND
-
-                fetch(`${API_URL}/api/remove/${playerNum}/${limb.code}`, { method: 'DELETE' })
-                  .then(response => {
-                    if (response.status === 200) {
-                      fetchData();
-                      setOpenModal(false);
-                    } else {
-                      console.error('Error:', response)
-                    }
-                  })
-                  .catch(error => {
-                    console.error('Error:', error)
-                  })
-                setOpenModal(false)
-              }}>
+              <Button color="failure" onClick={() => { removeLimb() }}>
                 {"Yes, I'm sure"}
               </Button>
               <Button color="gray" onClick={() => setOpenModal(false)}>

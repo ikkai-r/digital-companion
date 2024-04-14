@@ -107,10 +107,10 @@ export default function StatsContainer({ color, playernum, str, def, spe, cha, f
             </div>
 
             {playerNum == playernum &&
-              <Button className='accent-text w-full uppercase bg-accent2 border-white border-2 mt-2' onClick={() => setOpenModal(true)}>Add Buff / Debuff</Button>
+              <Button className='accent-text w-full uppercase bg-accent2 border-white border-2 mt-2' onClick={() => {setOpenModal(true); console.log('clicked buff')}}>Add Buff / Debuff</Button>
             }
             {playerNum != playernum &&
-              <Button className='accent-text w-full uppercase bg-accent2 border-white border-2 mt-2 invisible' onClick={() => setOpenModal(true)}>Add Buff / Debuff</Button>
+              <Button className='accent-text w-full uppercase bg-accent2 border-white border-2 mt-2 invisible'>Add Buff / Debuff</Button>
             }
           </div>
         </div>
@@ -164,31 +164,33 @@ export default function StatsContainer({ color, playernum, str, def, spe, cha, f
             </div>
 
             <div className="flex justify-center gap-4 mt-4">
-              <Button color="success" onClick={() => {
-                const stat = (document.getElementById('statInput') as HTMLInputElement).value;
-                const type = (document.getElementById('type') as HTMLInputElement).value;
-                let modifier = (document.getElementById('modifier') as HTMLInputElement).value;
-                const duration = (document.getElementById('duration') as HTMLInputElement).value;
-                if (stat && type && modifier && duration && parseInt(modifier) >= 0 && parseInt(duration) >= 0) {
-                  if (type == 'Debuff') {
-                    modifier = '-' + modifier
-                  }
-                  const API_URL = process.env.NEXT_PUBLIC_BACKEND
-                  fetch(`${API_URL}/api/buff/${playerNum}/${stat}/${modifier}/${duration}`, { method: 'POST' })
-                    .then(response => {
-                      if (response.status === 200) {
-                        fetchData()
-                        setOpenModal(false);
-                      } else {
-                        console.error('Error:', response)
-                      }
-                    })
-                    .catch(error => {
-                      console.error('Error:', error)
-                    })
-                }
+              <Button color="success" onClick={async () => {
+                    const stat = (document.getElementById('statInput') as HTMLInputElement).value;
+                    const type = (document.getElementById('type') as HTMLInputElement).value;
+                    let modifier = (document.getElementById('modifier') as HTMLInputElement).value;
+                    const duration = (document.getElementById('duration') as HTMLInputElement).value;
 
-              }}>
+                    if (stat && type && modifier && duration && parseInt(modifier) >= 0 && parseInt(duration) >= 0) {
+                      if (type === 'Debuff') {
+                        modifier = '-' + modifier;
+                      }
+
+                      try {
+                        const API_URL = process.env.NEXT_PUBLIC_BACKEND;
+                        const response = await fetch(`${API_URL}/api/buff/${playerNum}/${stat}/${modifier}/${duration}`, { method: 'POST' });
+
+                        if (response.status === 200) {
+                          setOpenModal(false);
+                          fetchData();
+                        } else {
+                          console.error('Error:', response);
+                        }
+                      } catch (error) {
+                        console.error('Error:', error);
+                      }
+                    }
+                  }}>
+
                 Add it!
               </Button>
               <Button color="gray" onClick={() => setOpenModal(false)}>
