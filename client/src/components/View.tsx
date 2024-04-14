@@ -54,7 +54,6 @@ export default function View() {
           playerView={currentPlayer}
           fetchData={fetchDataLimbs}
           data={dataLimbs}
-          isLoading={isLoadingLimbs}
           />
         <Buttons
         playerView={currentPlayer}/>
