@@ -56,6 +56,7 @@ export default function LimbTracker({playerView, fetchData, data, isLoading}) {
       })
       setLimbs(LIMBS);
       setNumLimb(LIMBS.length);
+      console.log(LIMBS)
     }
   }, [data, isLoading])
 
