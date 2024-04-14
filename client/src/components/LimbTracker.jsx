@@ -48,6 +48,7 @@ export default function LimbTracker({ playerView, fetchData, data }) {
               race: limb.fac
             }
           })
+          console.log(data)
           console.log(LIMBS)
           LIMBS.forEach(limb => {
             const raceColors = COLORS.find(color => color[limb.race.toLowerCase()]);
