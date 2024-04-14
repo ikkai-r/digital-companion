@@ -129,6 +129,9 @@ app.get("/api/view/:player", async (req, res) => {
 
 app.get("/api/view_parts/:player", async (req, res) => {
     const player = req.params.player
+    console.log(player)
+    console.log(players)
+    console.log(buffs)
     if (player < 1 || player > 4) {
         await res.status(400).setHeader('Access-Control-Allow-Origin', 'https://digital-companion.vercel.app').setHeader(
             "Cache-Control",
