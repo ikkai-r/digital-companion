@@ -174,7 +174,7 @@ export default function StatsContainer({ color, playernum, str, def, spe, cha })
                     modifier = '-' + modifier
                   }
                   const API_URL = process.env.NEXT_PUBLIC_BACKEND
-                  fetch(`${API_URL}/api//buff/${playerNum}/${stat}/${modifier}/${duration}`, { method: 'POST' })
+                  fetch(`${API_URL}/api/buff/${playerNum}/${stat}/${modifier}/${duration}`, { method: 'POST' })
                     .then(response => {
                       if (response.status === 200) {
                         window.location.reload()
