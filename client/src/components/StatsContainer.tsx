@@ -6,7 +6,7 @@ import { Button, Modal, Select, TextInput, Flowbite } from 'flowbite-react'
 import type { CustomFlowbiteTheme } from "flowbite-react";
 import { useSearchParams } from 'next/navigation'
 
-export default function StatsContainer({ color, playernum, str, def, spe, cha }) {
+export default function StatsContainer({ color, playernum, str, def, spe, cha, fetchData}) {
 
   const [openModal, setOpenModal] = useState(false);
   const searchParams = useSearchParams()
@@ -177,7 +177,8 @@ export default function StatsContainer({ color, playernum, str, def, spe, cha })
                   fetch(`${API_URL}/api/buff/${playerNum}/${stat}/${modifier}/${duration}`, { method: 'POST' })
                     .then(response => {
                       if (response.status === 200) {
-                        window.location.reload()
+                        fetchData()
+                        setOpenModal(false);
                       } else {
                         console.error('Error:', response)
                       }

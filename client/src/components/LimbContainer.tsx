@@ -8,7 +8,7 @@ import type { CustomFlowbiteTheme } from "flowbite-react";
 import { SlArrowDown } from "react-icons/sl";
 
 
-export default function LimbContainer({ limb, playerNow }) {
+export default function LimbContainer({ limb, playerNow, fetchData }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const searchParams = useSearchParams()
@@ -175,7 +175,8 @@ export default function LimbContainer({ limb, playerNow }) {
                 fetch(`${API_URL}/api/remove/${playerNum}/${limb.code}`, { method: 'DELETE' })
                   .then(response => {
                     if (response.status === 200) {
-                      window.location.reload()
+                      fetchData();
+                      setOpenModal(false);
                     } else {
                       console.error('Error:', response)
                     }

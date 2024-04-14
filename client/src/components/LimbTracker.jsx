@@ -6,9 +6,7 @@ import { useState, useEffect } from 'react'
 import { Spinner } from 'flowbite-react'
 
 
-export default function LimbTracker({playerView}) {
-  const [data, setData] = useState(null)
-  const [isLoading, setIsLoading] = useState(true);
+export default function LimbTracker({playerView, fetchData, data, isLoading}) {
 
   const COLORS = [
     {
@@ -28,18 +26,6 @@ export default function LimbTracker({playerView}) {
   ]
 
   useEffect(() => {
-    const fetchData = async () => {
-        try {
-            const API_URL = process.env.NEXT_PUBLIC_BACKEND;
-            const response = await fetch(`${API_URL}/api/view_parts/${playerView}`);
-            const data = await response.json();
-            setData(data);
-            setIsLoading(false)
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    };
-
     fetchData();
 }, [playerView]);
 
@@ -100,6 +86,7 @@ export default function LimbTracker({playerView}) {
           <LimbContainer
             limb={limb}
             playerNow={playerView}
+            fetchData={fetchData}
           />
         ))}
 
