@@ -3,9 +3,12 @@
 import React from 'react'
 import LimbContainer from './LimbContainer';
 import { useState, useEffect } from 'react'
+import { Spinner } from 'flowbite-react'
+
 
 export default function LimbTracker({playerView}) {
   const [data, setData] = useState(null)
+  const [isLoading, setIsLoading] = useState(true);
 
   const COLORS = [
     {
@@ -25,16 +28,20 @@ export default function LimbTracker({playerView}) {
   ]
 
   useEffect(() => {
-    const API_URL = process.env.NEXT_PUBLIC_BACKEND
-    fetch(`${API_URL}/api/view_parts/${playerView}`)
-      .then(response => response.json())
-      .then(data => {
-        setData(data)
-      })
-      .catch(error => {
-        console.error('Error:', error)
-      })
-  }, [playerView])
+    const fetchData = async () => {
+        try {
+            const API_URL = process.env.NEXT_PUBLIC_BACKEND;
+            const response = await fetch(`${API_URL}/api/view_parts/${playerView}`);
+            const data = await response.json();
+            setData(data);
+            setIsLoading(false)
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+
+    fetchData();
+}, [playerView]);
 
   let LIMBS;
 
@@ -74,11 +81,20 @@ export default function LimbTracker({playerView}) {
           Limbs
         </p>
         <p className='uppercase accent-text text-accent2 bold text-3xl'>
-          {numLimb}
+          {isLoading? '': numLimb}
         </p>
       </div>
 
-      <div className='w-full max-h-[350px] min-h-[350px] overflow-y-auto'>
+      <div className={`w-full max-h-[350px] min-h-[350px] overflow-y-auto  ${isLoading ? 'flex justify-center items-center' : ''}`}>
+
+      {
+      isLoading ?  <div className='h-70 sm:h-70 xl:h-80 2xl:h-96 mt-4 p-10 accent-text uppercase text-center gap-3 justify-center text-background text-4xl w-full flex flex-col rounded-md'>
+                        <Spinner size="lg" color="success" aria-label="Pink spinner example" />
+                     <div className='mt-1'>
+                      Loading
+                      </div>
+                    </div> : ''
+    }
 
         {LIMBS.map(limb => (
           <LimbContainer

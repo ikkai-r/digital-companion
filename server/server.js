@@ -118,7 +118,7 @@ app.get("/api/reset", (req, res) => {
     res.status(200).setHeader('Access-Control-Allow-Origin', 'https://digital-companion.vercel.app').send("Reset successful!")
 })
 
-app.get("/api/view/:player", (req, res) => {
+app.get("/api/view/:player", async (req, res) => {
     const player = req.params.player
     if (player < 1 || player > 4) {
         res.status(400).setHeader('Access-Control-Allow-Origin', 'https://digital-companion.vercel.app').send("Invalid player number!")
@@ -136,7 +136,7 @@ app.get("/api/view_parts/:player", (req, res) => {
     }
 });
 
-app.get("/api/view_all_stats", (req, res) => {
+app.get("/api/view_all_stats", async (req, res) => {
     const allStats = []
     for (let i = 1; i <= 4; i++) {
         allStats.push({ playerNum: i, stats: getStats(i) })

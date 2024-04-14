@@ -1,6 +1,6 @@
 "use client"
 import React from 'react'
-import { Carousel, Flowbite } from 'flowbite-react'
+import { Carousel, Spinner } from 'flowbite-react'
 import type { CustomFlowbiteTheme } from "flowbite-react";
 import StatsContainer from './StatsContainer';
 import { useState, useEffect } from 'react'
@@ -11,17 +11,25 @@ export default function StatsTracker({currentPlayer, setCurrentPlayer}) {
   const [data, setData] = useState<any[]>([])
   const searchParams = useSearchParams()
   const playerNum = searchParams?.get('player') ?? '';
+  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const API_URL = process.env.NEXT_PUBLIC_BACKEND
-    fetch(`${API_URL}/api/view_all_stats`)
-      .then(response => response.json())
-      .then((data) => {
+  useEffect(()  => {
+    const fetchData = async () => {
+      try {
+        const API_URL = process.env.NEXT_PUBLIC_BACKEND;
+        const response = await fetch(`${API_URL}/api/view_all_stats`);
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
         setData(data);
-      })
-      .catch(error => {
-        console.error('Error:', error)
-      })
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+  
+    fetchData();
   }, [])
 
   let PLAYERS :any[] = []; 
@@ -41,7 +49,7 @@ if (!data) {
     {
       color: '#E4273B',
       playerNum: '3',
-      stats: { str: '1', def: '0', spd: '0', cha: '0' }
+      stats: { str: '0', def: '0', spd: '0', cha: '0' }
     },
     {
       color: '#61ebff',
@@ -83,9 +91,9 @@ if (!data) {
   const carouselTheme: CustomFlowbiteTheme['carousel'] = {
       "root": {
         "base": "relative h-full w-full",
-        "leftControl": "absolute top-0 mt-16 pt-4 flex h-full items-center justify-center px-4 focus:outline-none",
-        "rightControl": "absolute ml-14 top-0 mt-16  pt-4 flex h-full items-center justify-center px-4 focus:outline-none"
-      },
+        "leftControl": `absolute top-0 mt-16 pt-4 flex h-full items-center justify-center px-4 focus:outline-none ${isLoading ? 'hidden' : ''}`,
+        "rightControl": `absolute ml-14 top-0 mt-16 pt-4 flex h-full items-center justify-center px-4 focus:outline-none ${isLoading ? 'hidden' : ''}`
+    },
       "indicators": {
         "active": {
           "off": "hidden bg-white/50 hover:bg-white dark:bg-gray-800/50 dark:hover:bg-gray-800",
@@ -104,6 +112,15 @@ if (!data) {
   return (
 
     <>
+
+    {
+      isLoading ?  <div className='h-70 sm:h-70 xl:h-80 2xl:h-96 mt-4 p-10 bg-accent accent-text uppercase text-center gap-3 justify-center text-background text-4xl w-full flex flex-col rounded-md'>
+                        <Spinner size="lg" color="pink" aria-label="Pink spinner example" />
+                     <div className='mt-1'>
+                      Loading
+                      </div>
+                    </div> : ''
+    }
     
     <div className='h-70 sm:h-70 xl:h-80 2xl:h-96 mt-4'>
         <Carousel slide={false} theme={carouselTheme} onSlideChange={(index) => {
