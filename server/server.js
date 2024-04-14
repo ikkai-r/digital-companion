@@ -130,9 +130,15 @@ app.get("/api/view/:player", async (req, res) => {
 app.get("/api/view_parts/:player", async (req, res) => {
     const player = req.params.player
     if (player < 1 || player > 4) {
-        await res.status(400).setHeader('Access-Control-Allow-Origin', 'https://digital-companion.vercel.app').send("Invalid player number!")
+        await res.status(400).setHeader('Access-Control-Allow-Origin', 'https://digital-companion.vercel.app').setHeader(
+            "Cache-Control",
+            "no-cache, no-store, max-age=0, must-revalidate"
+          ).send("Invalid player number!")
     } else {
-        await res.status(200).setHeader('Access-Control-Allow-Origin', 'https://digital-companion.vercel.app').send(players[player - 1])
+        await res.status(200).setHeader('Access-Control-Allow-Origin', 'https://digital-companion.vercel.app').setHeader(
+            "Cache-Control",
+            "no-cache, no-store, max-age=0, must-revalidate"
+          ).send(players[player - 1])
     }
 });
 
